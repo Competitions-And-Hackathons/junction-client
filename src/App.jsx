@@ -361,6 +361,23 @@ class App extends Component {
           <div className="player_rank">
             <span className="rank" font-size>1.</span>
           </div>
+
+
+          <div className="skill_box_first">
+            <span className="skill_R" font-size>R</span>
+          </div>
+
+          <div className="skill_box">
+            <span className="skill_E" font-size>E</span>
+          </div>
+
+          <div className="skill_box">
+            <span className="skill_W" font-size>W</span>
+          </div>
+
+          <div className="skill_box">
+            <span className="skill_Q" font-size>Q</span>
+          </div>
         </header>
 
         
