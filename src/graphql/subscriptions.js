@@ -104,7 +104,6 @@ export const onCreateOnGameSession = /* GraphQL */ `
   subscription OnCreateOnGameSession {
     onCreateOnGameSession {
       id
-      gameid
       player1_id
       player1_x
       player2_id
@@ -122,7 +121,6 @@ export const onUpdateOnGameSession = /* GraphQL */ `
   subscription OnUpdateOnGameSession {
     onUpdateOnGameSession {
       id
-      gameid
       player1_id
       player1_x
       player2_id
@@ -140,7 +138,6 @@ export const onDeleteOnGameSession = /* GraphQL */ `
   subscription OnDeleteOnGameSession {
     onDeleteOnGameSession {
       id
-      gameid
       player1_id
       player1_x
       player2_id
@@ -158,7 +155,6 @@ export const onCreateOnGameSkill = /* GraphQL */ `
   subscription OnCreateOnGameSkill {
     onCreateOnGameSkill {
       id
-      skill
       gameid
       skill_name
       skill_state
@@ -173,7 +169,6 @@ export const onUpdateOnGameSkill = /* GraphQL */ `
   subscription OnUpdateOnGameSkill {
     onUpdateOnGameSkill {
       id
-      skill
       gameid
       skill_name
       skill_state
@@ -188,7 +183,6 @@ export const onDeleteOnGameSkill = /* GraphQL */ `
   subscription OnDeleteOnGameSkill {
     onDeleteOnGameSkill {
       id
-      skill
       gameid
       skill_name
       skill_state

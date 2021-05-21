@@ -96,7 +96,6 @@ export const getOnGameSession = /* GraphQL */ `
   query GetOnGameSession($id: ID!) {
     getOnGameSession(id: $id) {
       id
-      gameid
       player1_id
       player1_x
       player2_id
@@ -119,7 +118,6 @@ export const listOnGameSessions = /* GraphQL */ `
     listOnGameSessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        gameid
         player1_id
         player1_x
         player2_id
@@ -139,7 +137,6 @@ export const getOnGameSkill = /* GraphQL */ `
   query GetOnGameSkill($id: ID!) {
     getOnGameSkill(id: $id) {
       id
-      skill
       gameid
       skill_name
       skill_state
@@ -159,7 +156,6 @@ export const listOnGameSkills = /* GraphQL */ `
     listOnGameSkills(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        skill
         gameid
         skill_name
         skill_state

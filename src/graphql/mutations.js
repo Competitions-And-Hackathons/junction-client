@@ -134,7 +134,6 @@ export const createOnGameSession = /* GraphQL */ `
   ) {
     createOnGameSession(input: $input, condition: $condition) {
       id
-      gameid
       player1_id
       player1_x
       player2_id
@@ -155,7 +154,6 @@ export const updateOnGameSession = /* GraphQL */ `
   ) {
     updateOnGameSession(input: $input, condition: $condition) {
       id
-      gameid
       player1_id
       player1_x
       player2_id
@@ -176,7 +174,6 @@ export const deleteOnGameSession = /* GraphQL */ `
   ) {
     deleteOnGameSession(input: $input, condition: $condition) {
       id
-      gameid
       player1_id
       player1_x
       player2_id
@@ -197,7 +194,6 @@ export const createOnGameSkill = /* GraphQL */ `
   ) {
     createOnGameSkill(input: $input, condition: $condition) {
       id
-      skill
       gameid
       skill_name
       skill_state
@@ -215,7 +211,6 @@ export const updateOnGameSkill = /* GraphQL */ `
   ) {
     updateOnGameSkill(input: $input, condition: $condition) {
       id
-      skill
       gameid
       skill_name
       skill_state
@@ -233,7 +228,6 @@ export const deleteOnGameSkill = /* GraphQL */ `
   ) {
     deleteOnGameSkill(input: $input, condition: $condition) {
       id
-      skill
       gameid
       skill_name
       skill_state

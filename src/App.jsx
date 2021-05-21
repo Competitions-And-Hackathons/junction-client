@@ -9,7 +9,7 @@ import {AmplifySignOut, withAuthenticator} from '@aws-amplify/ui-react';
 
 // AWS APIs
 import {listMMRs, listSessionWaitings, listSessionMatchings, listOnGameSessions} from './graphql/queries'
-import {createMMR, createSessionWaiting, deleteSessionWaiting, createSessionMatching, deleteSessionMatching, createOnGameSession} from './graphql/mutations'
+import {createMMR, createSessionWaiting, deleteSessionWaiting, createSessionMatching, deleteSessionMatching, createOnGameSession, updateOnGameSession, deleteOnGameSession} from './graphql/mutations'
 
 //uuid
 import {v4 as uuid} from 'uuid'
@@ -23,7 +23,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state  = {
-      client_state : "playing",
+      client_state : "init",
       player: [
         {num: "1", id: "KJM", x: "1", enemy: "Enemy"},
         {num: "2", id: "SDS", x: "2", enemy: "Enemy"},
@@ -112,8 +112,7 @@ class App extends Component {
       }
 
       const createOnGameSessionInput = {
-        "id": uuid(),
-        "gameid": gameid,
+        "id": gameid,
         "player1_id": sessionWaiting[0].userid,
         "player1_x": 0,
         "player2_id": sessionWaiting[1].userid,
@@ -129,6 +128,30 @@ class App extends Component {
 
   }
 
+  getGameSettingData = ()=>{
+    // instantiate a headers object
+    var myHeaders = new Headers();
+    // add content type header to object
+    myHeaders.append("Content-Type", "application/json");
+
+    // using built in JSON utility package turn object to string and store in a variable
+    var raw = JSON.stringify({"data":"dummy"});
+    // create a JSON object with parameters for API call and store in a variable
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    // make API call with parameters and use promises to get response
+    fetch("https://69hpl4j6x9.execute-api.ap-northeast-2.amazonaws.com/dev", requestOptions)
+    .then(response => response.text())    
+    .then(result => (this.setState({gameSetting: JSON.parse(result).body})))
+    .catch(error => console.log('error', error))
+  }
+
+
   async checkSession(){
     const SessionMatchingsList = await API.graphql(graphqlOperation(listSessionMatchings))
     let SessionMatchingItems =  SessionMatchingsList.data.listSessionMatchings.items;
@@ -143,6 +166,42 @@ class App extends Component {
         "id": my_matching.id,
       }
       await API.graphql(graphqlOperation(deleteSessionMatching, {input: deleteSessionMatchingInput}));
+      
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+      console.log(OnGameSessionsListItems);
+      console.log(this.state.gameid);
+
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+
+      this.setState({player1_id : my_game.player1_id});
+      this.setState({player2_id : my_game.player2_id});
+      this.setState({player3_id : my_game.player3_id});
+      this.setState({player4_id : my_game.player4_id});
+
+      this.setState({player1_x : parseInt(my_game.player1_x)});
+      this.setState({player2_x : parseInt(my_game.player2_x)});
+      this.setState({player3_x : parseInt(my_game.player3_x)});
+      this.setState({player4_x : parseInt(my_game.player4_x)});
+
+
+      if (this.state.username === this.state.player1_id){
+        this.setState({my_number : 1});
+      }
+      else if (this.state.username === this.state.player2_id){
+        this.setState({my_number : 2});
+      }
+      else if (this.state.username === this.state.player3_id){
+        this.setState({my_number : 3});
+      }
+      else if (this.state.username === this.state.player4_id){
+        this.setState({my_number : 4});
+      }
+
+
+
+      this.getGameSettingData()
 
       this.changeState("playing");
     }
@@ -155,6 +214,113 @@ class App extends Component {
     console.log('player list', playerList);
     // DB
   }
+
+  async loadGameData(){
+    const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+    let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+    const my_game = OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+
+    this.setState({player1_x : parseInt(my_game.player1_x)});
+    this.setState({player2_x : parseInt(my_game.player2_x)});
+    this.setState({player3_x : parseInt(my_game.player3_x)});
+    this.setState({player4_x : parseInt(my_game.player4_x)});
+  }
+
+  async moveChatacter(){
+    await this.loadGameData();
+    
+
+
+    if (this.state.my_number == 1){
+
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+
+
+      my_game.player1_x = my_game.player1_x + this.state.gameSetting[0].speed;
+
+
+      delete my_game.createdAt;
+      delete my_game.updatedAt;
+
+
+      const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+
+      this.setState({player1_x : parseInt(my_game.player1_x)});
+
+      console.log(this.state.player1_x);
+      
+    }
+
+    else if (this.state.my_number == 2){
+
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+
+
+      my_game.player2_x = my_game.player2_x + this.state.gameSetting[0].speed;
+
+
+      delete my_game.createdAt;
+      delete my_game.updatedAt;
+
+
+      const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+
+      this.setState({player2_x : parseInt(updated_game.player2_x)});
+      
+    }
+
+    else if (this.state.my_number == 3){
+
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+
+
+      my_game.player3_x = my_game.player3_x + this.state.gameSetting[0].speed;
+
+
+      delete my_game.createdAt;
+      delete my_game.updatedAt;
+
+
+      const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+
+      this.setState({player3_x : parseInt(updated_game.player3_x)});
+      
+    }
+
+    else if (this.state.my_number == 4){
+
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+
+
+      my_game.player4_x = my_game.player4_x + this.state.gameSetting[0].speed;
+
+
+      delete my_game.createdAt;
+      delete my_game.updatedAt;
+
+
+      const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+
+      this.setState({player4_x : parseInt(updated_game.player4_x)});
+      
+    }
+
+  }
+
+  
 
   render(){
     if (this.state.client_state === "init"){
@@ -205,8 +371,8 @@ class App extends Component {
     else if (this.state.client_state === "playing"){
       return (
 
-
-        <header>          
+        <header>
+          
           <div className="tracks">
             <div className="track_info_line"></div>
             <div className="track_info_line"></div>
@@ -223,32 +389,44 @@ class App extends Component {
             <div className="track_line"></div>
             
             <div className="track">
-              <span className="player-container">
+              <span className="player-container" style={{paddingLeft: this.state.player1_x}}>
                 <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
               </span>
             </div>
             
             <div className="track_line"></div>
             <div className="track">
-              <span className="player-container">
+              <span className="player-container" style={{paddingLeft: this.state.player2_x}}>
                 <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
               </span>
             </div>
             
             <div className="track_line"></div>
             <div className="track">
-              <span className="player-container">
+              <span className="player-container" style={{paddingLeft: this.state.player3_x}}>
                 <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
               </span>
             </div>
 
             <div className="track_line"></div>
             <div className="track">
-              <span className="player-container">
+              <span className="player-container" style={{paddingLeft: this.state.player4_x}}>
                 <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
               </span>
             </div>
             <div className="track_line"></div>
+
+            <div className="track_info_line"></div>
+            <div className="track_info_line"></div>
+          </div>
+
+          <div className="row">
+            <div className="column">
+              Hello
+            </div>
+            <div className="column">
+              <div className="custom_button" onClick={()=> this.moveChatacter()}> MOVE!!!</div>
+            </div>
           </div>
 
           <div className="player_rank">
@@ -276,6 +454,24 @@ class App extends Component {
               <span className="player_enemy">{this.state.player[3].enemy}</span>
               <span className="player_x4">Player is on {this.state.player[3].x}</span>
             </div>
+          </div>
+
+
+          {/* 스킬이 역순인 점 조심 */}
+          <div className="skill_box_first">
+            <span className="skill_R" font-size><img src="resource/images/infinite.png"/></span>
+          </div>
+
+          <div className="skill_box">
+            <span className="skill_E" font-size><img src="resource/images/hammer.png"/></span>
+          </div>
+
+          <div className="skill_box">
+            <span className="skill_W" font-size><img src="resource/images/missile.png"/></span>
+          </div>
+
+          <div className="skill_box">
+            <span className="skill_Q" font-size><img src="resource/images/doom.png"/></span>
           </div>
         </header>
 
