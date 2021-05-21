@@ -212,28 +212,28 @@ class App extends Component {
             
             <div className="track">
               <span className="player-container">
-                <img src="./resource/images/running.png" className="runner_img" ></img>
+                <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
               </span>
             </div>
             
             <div className="track_line"></div>
             <div className="track">
               <span className="player-container">
-                <img src="./resource/images/running.png" className="runner_img" ></img>
+                <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
               </span>
             </div>
             
             <div className="track_line"></div>
             <div className="track">
               <span className="player-container">
-                <img src="./resource/images/running.png" className="runner_img" ></img>
+                <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
               </span>
             </div>
 
             <div className="track_line"></div>
             <div className="track">
               <span className="player-container">
-                <img src="./resource/images/running.png" className="runner_img" ></img>
+                <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
               </span>
             </div>
             <div className="track_line"></div>
