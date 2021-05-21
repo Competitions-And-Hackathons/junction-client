@@ -1,0 +1,55 @@
+type MMR @model {
+  userid: ID!
+  mmr: Float!
+}
+
+type SessionWaiting @model {
+  userid: ID!
+  mmr: Float!
+}
+
+type SessionMatching @model {
+  userid: ID!
+  gameid: String!
+}
+
+type OnGameSession @model {
+  gameid: ID!
+
+  player1_id: String!
+  player1_x: Int!
+
+  player2_id: String!
+  player2_x: Int!
+
+  player3_id: String!
+  player3_x: Int!
+
+  player4_id: String!
+  player4_x: Int!
+
+}
+
+type OnGameSkill @model {
+  skill: ID!
+  gameid: String!
+  skill_name: String!
+  skill_state: String!
+  source_player: Int!
+  target_player: Int!
+}
+
+
+type SkillSummary @model {
+  gameid: ID!
+  sourced_tanos: Int!
+  sourced_backdoor: Int!
+  sourced_infinite: Int!
+  sourced_shoot: Int!
+  sourced_doom: Int!
+  targeted_tanos: Int!
+  targeted_backdoor: Int!
+  targeted_infinite: Int!
+  targeted_shoot: Int!
+  targeted_doom: Int!
+}
