@@ -192,9 +192,7 @@ class App extends Component {
       return (
 
 
-        <header>
-          
-          
+        <header>          
           <div className="tracks">
             <div className="track_info_line"></div>
             <div className="track_info_line"></div>
@@ -239,7 +237,9 @@ class App extends Component {
             <div className="track_line"></div>
           </div>
 
-            
+          <div className="player_rank">
+            <span className="rank" font-size>1.</span>
+          </div>
         </header>
 
         
