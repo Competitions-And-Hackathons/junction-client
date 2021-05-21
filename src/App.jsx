@@ -193,18 +193,51 @@ class App extends Component {
 
 
         <header>
-  
+          
+          
+          <div className="tracks">
+            <div className="track_info_line"></div>
+            <div className="track_info_line"></div>
+
+            <div className="track_info_line">
+              <span className="track_info_text">SKILL</span>
+              <span className="track_info_text_has_margin">SKILL</span>
+              <span className="track_info_text_has_margin">SKILL</span>
+              <span className="track_info_text_has_margin">SKILL</span>
+              <span className="track_info_text_has_margin">WIN!!</span>
+
+            </div>
 
             <div className="track_line"></div>
-            <div className="track"></div>
+            
+            <div className="track">
+              <span className="player-container">
+                <img src="./resource/images/running.png" className="runner_img" ></img>
+              </span>
+            </div>
+            
             <div className="track_line"></div>
-            <div className="track"></div>
+            <div className="track">
+              <span className="player-container">
+                <img src="./resource/images/running.png" className="runner_img" ></img>
+              </span>
+            </div>
+            
             <div className="track_line"></div>
-            <div className="track"></div>
-            <div className="track_line"></div>
-            <div className="track"></div>
-            <div className="track_line"></div>
+            <div className="track">
+              <span className="player-container">
+                <img src="./resource/images/running.png" className="runner_img" ></img>
+              </span>
+            </div>
 
+            <div className="track_line"></div>
+            <div className="track">
+              <span className="player-container">
+                <img src="./resource/images/running.png" className="runner_img" ></img>
+              </span>
+            </div>
+            <div className="track_line"></div>
+          </div>
 
             
         </header>

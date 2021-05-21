@@ -45,4 +45,75 @@
   width: 60vw;
   height: 5vw;
   margin: 0 auto;
+
+  text-align: left;
+}
+
+.track_info_line{
+  width: 60vw;
+  height: 2vw;
+  margin: 0 auto;
+
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.track_info_text{
+  font-weight: bold;
+  font-size: 2em;
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.track_info_text_has_margin{
+  font-weight: bold;
+  font-size: 2em;
+  text-align: left;
+  vertical-align: bottom;
+
+  margin-left: 14%;
+}
+
+.player-container{
+  position: relative;
+  z-index: 1;
+
+
+  display: flex;
+
+
+  width: 7.69%;
+  height: 100%;
+}
+
+.runner_img{
+
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+  vertical-align:middle;
+}
+
+.tile-container{
+  background-color: darkgreen;
+
+  position: relative;
+  z-index: 2;
+  
+ 
+  display: flex;
+
+  width: 7.69%;
+  height: 100%;
+}
+
+.tile_img{
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+  vertical-align:bottom;
 }
