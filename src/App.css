@@ -4,7 +4,6 @@
 
 
 .App-header {
-
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -118,6 +117,7 @@
   vertical-align:bottom;
 }
 
+<<<<<<< Updated upstream
 .player_rank{
   margin-left: 20%;
   font-size: 5vw
@@ -130,3 +130,26 @@
   text-align: left;
   vertical-align: bottom;
 }
+=======
+.column {
+  flex: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row {
+  display: flex;
+}
+
+
+
+>>>>>>> Stashed changes

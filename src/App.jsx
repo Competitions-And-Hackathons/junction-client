@@ -8,8 +8,8 @@ import awsconfig from './aws-exports';
 import {AmplifySignOut, withAuthenticator} from '@aws-amplify/ui-react';
 
 // AWS APIs
-import {listMMRs, listSessionWaitings, listSessionMatchings} from './graphql/queries'
-import {createMMR, createSessionWaiting, deleteSessionWaiting, createSessionMatching, deleteSessionMatching, createOnGameSession} from './graphql/mutations'
+import {listMMRs, listSessionWaitings, listSessionMatchings, listOnGameSessions} from './graphql/queries'
+import {createMMR, createSessionWaiting, deleteSessionWaiting, createSessionMatching, deleteSessionMatching, createOnGameSession, updateOnGameSession, deleteOnGameSession} from './graphql/mutations'
 
 //uuid
 import {v4 as uuid} from 'uuid'
@@ -23,7 +23,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state  = {
-      client_state : "playing"
+      client_state : "init"
     }
   }
   sleep(delay){
@@ -123,6 +123,30 @@ class App extends Component {
 
   }
 
+  getGameSettingData = ()=>{
+    // instantiate a headers object
+    var myHeaders = new Headers();
+    // add content type header to object
+    myHeaders.append("Content-Type", "application/json");
+
+    // using built in JSON utility package turn object to string and store in a variable
+    var raw = JSON.stringify({"data":"dummy"});
+    // create a JSON object with parameters for API call and store in a variable
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    // make API call with parameters and use promises to get response
+    fetch("https://69hpl4j6x9.execute-api.ap-northeast-2.amazonaws.com/dev", requestOptions)
+    .then(response => response.text())    
+    .then(result => (this.setState({gameSetting: JSON.parse(result).body})))
+    .catch(error => console.log('error', error))
+  }
+
+
   async checkSession(){
     const SessionMatchingsList = await API.graphql(graphqlOperation(listSessionMatchings))
     let SessionMatchingItems =  SessionMatchingsList.data.listSessionMatchings.items;
@@ -137,10 +161,89 @@ class App extends Component {
         "id": my_matching.id,
       }
       await API.graphql(graphqlOperation(deleteSessionMatching, {input: deleteSessionMatchingInput}));
+      
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.gameid === this.state.gameid)
+
+      this.setState({real_game_id : my_game.id});
+
+      this.setState({player1_id : my_game.player1_id});
+      this.setState({player2_id : my_game.player2_id});
+      this.setState({player3_id : my_game.player3_id});
+      this.setState({player4_id : my_game.player4_id});
+
+      this.setState({player1_x : parseInt(my_game.player1_x)});
+      this.setState({player2_x : parseInt(my_game.player2_x)});
+      this.setState({player3_x : parseInt(my_game.player3_x)});
+      this.setState({player4_x : parseInt(my_game.player4_x)});
+
+
+      if (this.state.username === this.state.player1_id){
+        this.setState({my_number : 1});
+      }
+      else if (this.state.username === this.state.player2_id){
+        this.setState({my_number : 2});
+      }
+      else if (this.state.username === this.state.player3_id){
+        this.setState({my_number : 3});
+      }
+      else if (this.state.username === this.state.player4_id){
+        this.setState({my_number : 4});
+      }
+
+
+
+      this.getGameSettingData()
 
       this.changeState("playing");
     }
   }
+
+  async loadGameData(){
+    const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+    let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+    const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.gameid === this.state.gameid)
+
+    this.setState({player1_x : parseInt(my_game.player1_x)});
+    this.setState({player2_x : parseInt(my_game.player2_x)});
+    this.setState({player3_x : parseInt(my_game.player3_x)});
+    this.setState({player4_x : parseInt(my_game.player4_x)});
+  }
+
+  async moveChatacter(){
+    await this.loadGameData();
+    
+    console.log(this.state.player1_x + parseInt(this.state.gameSetting[0].speed))
+
+    if (this.state.my_number == 1){
+
+      console.log("access inside");
+
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.gameid === this.state.gameid)
+
+      console.log(my_game);
+
+      my_game.player1_x = my_game.player1_x + this.state.gameSetting[0].speed;
+
+      console.log(my_game);
+
+      delete my_game.createdAt;
+      delete my_game.updatedAt;
+
+      console.log(my_game);
+
+      const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+    }
+
+  }
+
+  
 
   render(){
     if (this.state.client_state === "init"){
@@ -191,8 +294,8 @@ class App extends Component {
     else if (this.state.client_state === "playing"){
       return (
 
-
-        <header>          
+        <header>
+          
           <div className="tracks">
             <div className="track_info_line"></div>
             <div className="track_info_line"></div>
@@ -235,6 +338,18 @@ class App extends Component {
               </span>
             </div>
             <div className="track_line"></div>
+
+            <div className="track_info_line"></div>
+            <div className="track_info_line"></div>
+          </div>
+
+          <div className="row">
+            <div className="column">
+              Hello
+            </div>
+            <div className="column">
+              <div className="custom_button" onClick={()=> this.moveChatacter()}> MOVE!!!</div>
+            </div>
           </div>
 
           <div className="player_rank">
