@@ -216,34 +216,91 @@ class App extends Component {
   async moveChatacter(){
     await this.loadGameData();
     
-    console.log(this.state.player1_x + parseInt(this.state.gameSetting[0].speed))
+
 
     if (this.state.my_number == 1){
-
-      console.log("access inside");
 
       const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
       let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
 
       const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
-      console.log(my_game);
 
       my_game.player1_x = my_game.player1_x + this.state.gameSetting[0].speed;
 
-      console.log(my_game);
 
       delete my_game.createdAt;
       delete my_game.updatedAt;
 
-      console.log(my_game);
 
       const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
-      console.log(updated_game);
-      
+      this.setState({player1_x : parseInt(my_game.player1_x)});
 
-      //
+      console.log(this.state.player1_x);
+      
+    }
+
+    else if (this.state.my_number == 2){
+
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+
+
+      my_game.player2_x = my_game.player2_x + this.state.gameSetting[0].speed;
+
+
+      delete my_game.createdAt;
+      delete my_game.updatedAt;
+
+
+      const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+
+      this.setState({player2_x : parseInt(updated_game.player2_x)});
+      
+    }
+
+    else if (this.state.my_number == 3){
+
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+
+
+      my_game.player3_x = my_game.player3_x + this.state.gameSetting[0].speed;
+
+
+      delete my_game.createdAt;
+      delete my_game.updatedAt;
+
+
+      const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+
+      this.setState({player3_x : parseInt(updated_game.player3_x)});
+      
+    }
+
+    else if (this.state.my_number == 4){
+
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+
+
+      my_game.player4_x = my_game.player4_x + this.state.gameSetting[0].speed;
+
+
+      delete my_game.createdAt;
+      delete my_game.updatedAt;
+
+
+      const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+
+      this.setState({player4_x : parseInt(updated_game.player4_x)});
       
     }
 
@@ -318,28 +375,28 @@ class App extends Component {
             <div className="track_line"></div>
             
             <div className="track">
-              <span className="player-container">
+              <span className="player-container" style={{paddingLeft: this.state.player1_x}}>
                 <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
               </span>
             </div>
             
             <div className="track_line"></div>
             <div className="track">
-              <span className="player-container">
+              <span className="player-container" style={{paddingLeft: this.state.player2_x}}>
                 <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
               </span>
             </div>
             
             <div className="track_line"></div>
             <div className="track">
-              <span className="player-container">
+              <span className="player-container" style={{paddingLeft: this.state.player3_x}}>
                 <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
               </span>
             </div>
 
             <div className="track_line"></div>
             <div className="track">
-              <span className="player-container">
+              <span className="player-container" style={{paddingLeft: this.state.player4_x}}>
                 <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
               </span>
             </div>
@@ -363,20 +420,21 @@ class App extends Component {
           </div>
 
 
+          {/* 스킬이 역순인 점 조심 */}
           <div className="skill_box_first">
-            <span className="skill_R" font-size>R</span>
+            <span className="skill_R" font-size><img src="resource/images/infinite.png"/></span>
           </div>
 
           <div className="skill_box">
-            <span className="skill_E" font-size>E</span>
+            <span className="skill_E" font-size><img src="resource/images/hammer.png"/></span>
           </div>
 
           <div className="skill_box">
-            <span className="skill_W" font-size>W</span>
+            <span className="skill_W" font-size><img src="resource/images/missile.png"/></span>
           </div>
 
           <div className="skill_box">
-            <span className="skill_Q" font-size>Q</span>
+            <span className="skill_Q" font-size><img src="resource/images/doom.png"/></span>
           </div>
         </header>
 
