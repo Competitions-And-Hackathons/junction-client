@@ -9,7 +9,7 @@ import {AmplifySignOut, withAuthenticator} from '@aws-amplify/ui-react';
 
 // AWS APIs
 import {listMMRs, listSessionWaitings, listSessionMatchings} from './graphql/queries'
-import {createMMR, createSessionWaiting, deleteSessionWaiting, createSessionMatching, deleteSessionMatching} from './graphql/mutations'
+import {createMMR, createSessionWaiting, deleteSessionWaiting, createSessionMatching, deleteSessionMatching, createOnGameSession} from './graphql/mutations'
 
 //uuid
 import {v4 as uuid} from 'uuid'
@@ -104,6 +104,21 @@ class App extends Component {
         await API.graphql(graphqlOperation(createSessionMatching, {input: createSessionMatchingInput}));
 
       }
+
+      const createOnGameSessionInput = {
+        "id": uuid(),
+        "gameid": gameid,
+        "player1_id": sessionWaiting[0].userid,
+        "player1_x": 0,
+        "player2_id": sessionWaiting[1].userid,
+        "player2_x": 0,
+        "player3_id": sessionWaiting[2].userid,
+        "player3_x": 0,
+        "player4_id": sessionWaiting[3].userid,
+        "player4_x": 0,
+      }
+      await API.graphql(graphqlOperation(createOnGameSession, {input: createOnGameSessionInput}));
+
     }
 
   }
@@ -179,6 +194,17 @@ class App extends Component {
           <header className="App-header">
   
             <h1>Game Playing</h1>
+            
+          </header>
+        </div>
+      );
+    }
+    else if (this.state.client_state === "endgame"){
+      return (
+        <div className="App">
+          <header className="App-header">
+  
+            <h1>Game Ended</h1>
             
           </header>
         </div>
