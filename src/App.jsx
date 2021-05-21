@@ -23,7 +23,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state  = {
-      client_state : "init",
+      client_state : "playing",
       player: [
         {num: "1", id: "KJM", x: "1", enemy: "Enemy"},
         {num: "2", id: "SDS", x: "2", enemy: "Enemy"},
@@ -420,16 +420,41 @@ class App extends Component {
             <div className="track_info_line"></div>
           </div>
 
-          <div className="row">
-            <div className="column">
-              Hello
-            </div>
-            <div className="column">
-              <div className="custom_button" onClick={()=> this.moveChatacter()}> MOVE!!!</div>
-            </div>
+
+
+
+          <div class="container">
+              <div class="item">{this.state.player[0].num}.</div>
+              <div class="item">{this.state.player[1].num}.</div>
+              <div class="item">{this.state.player[2].num}.</div>
+              <div class="item">{this.state.player[3].num}.</div>
+
+              <div class="item">{this.state.player[0].id}</div>
+              <div class="item">{this.state.player[1].id}</div>
+              <div class="item">{this.state.player[2].id}</div>
+              <div class="item">{this.state.player[3].id}</div>
+
+              <div class="item">{this.state.player[0].enemy}</div>
+              <div class="item">Player is on {this.state.player[0].x}</div>
+              <div class="item">{this.state.player[1].enemy}</div>
+              <div class="item">Player is on {this.state.player[1].x}</div>
+              <div class="item">{this.state.player[2].enemy}</div>
+              <div class="item">Player is on {this.state.player[2].x}</div>
+              <div class="item">{this.state.player[3].enemy}</div>
+              <div class="item">Player is on {this.state.player[3].x}</div>
+
+              <div class="item" onClick={()=> this.moveChatacter()}>MOVE!!!</div>            
+        
+              <div class="item"><span font-size><img src="resource/images/infinite.png"/></span></div>
+              <div class="item"><span font-size><img src="resource/images/hammer.png"/></span></div>
+              <div class="item"><span font-size><img src="resource/images/missile.png"/></span></div>
+              <div class="item"><span font-size><img src="resource/images/doom.png"/></span></div>
           </div>
 
-          <div className="player_rank">
+
+
+
+          {/*<div className="player_rank">
             <div className="player_info">
               <span className="player_num">{this.state.player[0].num}.</span>
               <span className="player_id">{this.state.player[0].id}</span>
@@ -454,11 +479,17 @@ class App extends Component {
               <span className="player_enemy">{this.state.player[3].enemy}</span>
               <span className="player_x4">Player is on {this.state.player[3].x}</span>
             </div>
-          </div>
+      </div>*/}
 
+
+          {/*<div className="row">
+            <div className="column">
+              <div className="custom_button" onClick={()=> this.moveChatacter()}> MOVE!!!</div>
+            </div>
+          </div>*/}
 
           {/* 스킬이 역순인 점 조심 */}
-          <div className="skill_box_first">
+          {/*<div className="skill_box_first">
             <span className="skill_R" font-size><img src="resource/images/infinite.png"/></span>
           </div>
 
@@ -473,6 +504,8 @@ class App extends Component {
           <div className="skill_box">
             <span className="skill_Q" font-size><img src="resource/images/doom.png"/></span>
           </div>
+        */}
+
         </header>
 
         
