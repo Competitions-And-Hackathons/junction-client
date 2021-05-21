@@ -1497,21 +1497,6 @@
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "gameid",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
           "name" : "player1_id",
           "description" : null,
           "args" : [ ],
@@ -1707,7 +1692,7 @@
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "gameid",
+          "name" : "id",
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
@@ -3665,19 +3650,6 @@
           },
           "defaultValue" : null
         }, {
-          "name" : "gameid",
-          "description" : null,
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "SCALAR",
-              "name" : "ID",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
           "name" : "player1_id",
           "description" : null,
           "type" : {
@@ -3791,15 +3763,6 @@
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "gameid",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
           "name" : "player1_id",
           "description" : null,
           "type" : {
@@ -3916,12 +3879,16 @@
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
-          "name" : "gameid",
+          "name" : "id",
           "description" : null,
           "type" : {
-            "kind" : "SCALAR",
-            "name" : "ID",
-            "ofType" : null
+            "kind" : "NON_NULL",
+            "name" : null,
+            "ofType" : {
+              "kind" : "SCALAR",
+              "name" : "ID",
+              "ofType" : null
+            }
           },
           "defaultValue" : null
         }, {

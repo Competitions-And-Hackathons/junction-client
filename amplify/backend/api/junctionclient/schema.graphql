@@ -14,7 +14,7 @@ type SessionMatching @model {
 }
 
 type OnGameSession @model {
-  gameid: ID!
+  id : ID!
 
   player1_id: String!
   player1_x: Int!
@@ -31,7 +31,7 @@ type OnGameSession @model {
 }
 
 type OnGameSkill @model {
-  skill: ID!
+  id: ID!
   gameid: String!
   skill_name: String!
   skill_state: String!
@@ -41,7 +41,8 @@ type OnGameSkill @model {
 
 
 type SkillSummary @model {
-  gameid: ID!
+  id : ID!
+  gameid: String!
   sourced_tanos: Int!
   sourced_backdoor: Int!
   sourced_infinite: Int!

@@ -106,8 +106,7 @@ class App extends Component {
       }
 
       const createOnGameSessionInput = {
-        "id": uuid(),
-        "gameid": gameid,
+        "id": gameid,
         "player1_id": sessionWaiting[0].userid,
         "player1_x": 0,
         "player2_id": sessionWaiting[1].userid,
@@ -165,9 +164,10 @@ class App extends Component {
       const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
       let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
 
-      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.gameid === this.state.gameid)
+      console.log(OnGameSessionsListItems);
+      console.log(this.state.gameid);
 
-      this.setState({real_game_id : my_game.id});
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
       this.setState({player1_id : my_game.player1_id});
       this.setState({player2_id : my_game.player2_id});
@@ -205,7 +205,7 @@ class App extends Component {
     const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
     let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
 
-    const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.gameid === this.state.gameid)
+    const my_game = OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
     this.setState({player1_x : parseInt(my_game.player1_x)});
     this.setState({player2_x : parseInt(my_game.player2_x)});
@@ -225,7 +225,7 @@ class App extends Component {
       const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
       let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
 
-      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.gameid === this.state.gameid)
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
       console.log(my_game);
 
@@ -239,6 +239,10 @@ class App extends Component {
       console.log(my_game);
 
       const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+      //await API.graphql(graphqlOperation(deleteSessionMatching, {input: {"id": this.state.real_game_id}}))
+
+      //
+      
     }
 
   }

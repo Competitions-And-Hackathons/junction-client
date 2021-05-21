@@ -96,7 +96,6 @@ export const getOnGameSession = /* GraphQL */ `
   query GetOnGameSession($id: ID!) {
     getOnGameSession(id: $id) {
       id
-      gameid
       player1_id
       player1_x
       player2_id
@@ -119,7 +118,6 @@ export const listOnGameSessions = /* GraphQL */ `
     listOnGameSessions(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        gameid
         player1_id
         player1_x
         player2_id

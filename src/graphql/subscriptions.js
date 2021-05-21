@@ -104,7 +104,6 @@ export const onCreateOnGameSession = /* GraphQL */ `
   subscription OnCreateOnGameSession {
     onCreateOnGameSession {
       id
-      gameid
       player1_id
       player1_x
       player2_id
@@ -122,7 +121,6 @@ export const onUpdateOnGameSession = /* GraphQL */ `
   subscription OnUpdateOnGameSession {
     onUpdateOnGameSession {
       id
-      gameid
       player1_id
       player1_x
       player2_id
@@ -140,7 +138,6 @@ export const onDeleteOnGameSession = /* GraphQL */ `
   subscription OnDeleteOnGameSession {
     onDeleteOnGameSession {
       id
-      gameid
       player1_id
       player1_x
       player2_id
