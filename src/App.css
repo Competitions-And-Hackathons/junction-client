@@ -120,13 +120,67 @@
 
 .player_rank{
   margin-left: 20%;
-  font-size: 5vw
 }
 
-.rank{
+.player_info{
+  font-size: 3vw;
+  vertical-align: top;
+}
+
+.player_num{
   font-weight: bold;
   text-align: left;
-  vertical-align: bottom;
-  text-align: left;
-  vertical-align: bottom;
 }
+
+.player_id{
+  font-weight: bold;
+  text-align: right;
+  margin-right: 1%;
+}
+
+.player_enemy{
+  margin-left: 1%;
+  vertical-align: top;
+  font-size: 1.5vw;
+  position: fixed;
+  left: 30vw;
+  text-align: left;
+}
+
+.player_x1{
+  margin-left: 1%;
+  vertical-align: bottom;
+  font-size: 1.5vw;
+  position: fixed;
+  left: 30vw;
+  top: 29vw;
+  text-align: left;
+}
+.player_x2{
+  margin-left: 1%;
+  vertical-align: bottom;
+  font-size: 1.5vw;
+  position: fixed;
+  left: 30vw;
+  top: 33vw;
+  text-align: left;
+}
+.player_x3{
+  margin-left: 1%;
+  vertical-align: bottom;
+  font-size: 1.5vw;
+  position: fixed;
+  left: 30vw;
+  top: 37vw;
+  text-align: left;
+}
+.player_x4{
+  margin-left: 1%;
+  vertical-align: bottom;
+  font-size: 1.5vw;
+  position: fixed;
+  left: 30vw;
+  top: 41vw;
+  text-align: left;
+}
+
