@@ -1,11 +1,11 @@
-@font-face {
-  font-family: 'munro';
-  src: url('./fonts/munro.ttf');
+@import url('https://fonts.googleapis.com/css2?family=Quantico:wght@700&display=swap');
+
+body{
+  font-family: 'Quantico', sans-serif;
 }
 
 .App {
   text-align: center;
-  font: 'munro';
 }
 
 
