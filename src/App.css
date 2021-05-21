@@ -51,7 +51,7 @@
 
 .track_info_line{
   width: 60vw;
-  height: 4vw;
+  height: 2vw;
   margin: 0 auto;
 
   text-align: left;
@@ -60,18 +60,18 @@
 
 .track_info_text{
   font-weight: bold;
-  font-size: 4em;
+  font-size: 2em;
   text-align: left;
   vertical-align: bottom;
 }
 
 .track_info_text_has_margin{
   font-weight: bold;
-  font-size: 4em;
+  font-size: 2em;
   text-align: left;
   vertical-align: bottom;
 
-  margin-left: 11%;
+  margin-left: 14%;
 }
 
 .player-container{
