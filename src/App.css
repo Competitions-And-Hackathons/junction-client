@@ -129,3 +129,42 @@
   text-align: left;
   vertical-align: bottom;
 }
+
+.column {
+  flex: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row {
+  display: flex;
+}
+
+.skill_box_first{
+  float : right;
+  margin-right: 20%;
+  margin-bottom: 10%;
+  width: 5vw;
+  height: 5vw;
+  font-size: 3vw;
+  border: 3px solid #FF0000;
+}
+
+.skill_box{
+  float : right;
+  margin-right: 1%;
+  margin-bottom: 10%;
+  width: 5vw;
+  height: 5vw;
+  font-size: 3vw;
+  border: 3px solid #FF0000;
+}

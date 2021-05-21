@@ -239,7 +239,9 @@ class App extends Component {
       console.log(my_game);
 
       const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
-      //await API.graphql(graphqlOperation(deleteSessionMatching, {input: {"id": this.state.real_game_id}}))
+
+      console.log(updated_game);
+      
 
       //
       

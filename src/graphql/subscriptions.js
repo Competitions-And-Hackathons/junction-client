@@ -155,7 +155,6 @@ export const onCreateOnGameSkill = /* GraphQL */ `
   subscription OnCreateOnGameSkill {
     onCreateOnGameSkill {
       id
-      skill
       gameid
       skill_name
       skill_state
@@ -170,7 +169,6 @@ export const onUpdateOnGameSkill = /* GraphQL */ `
   subscription OnUpdateOnGameSkill {
     onUpdateOnGameSkill {
       id
-      skill
       gameid
       skill_name
       skill_state
@@ -185,7 +183,6 @@ export const onDeleteOnGameSkill = /* GraphQL */ `
   subscription OnDeleteOnGameSkill {
     onDeleteOnGameSkill {
       id
-      skill
       gameid
       skill_name
       skill_state

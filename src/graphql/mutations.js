@@ -194,7 +194,6 @@ export const createOnGameSkill = /* GraphQL */ `
   ) {
     createOnGameSkill(input: $input, condition: $condition) {
       id
-      skill
       gameid
       skill_name
       skill_state
@@ -212,7 +211,6 @@ export const updateOnGameSkill = /* GraphQL */ `
   ) {
     updateOnGameSkill(input: $input, condition: $condition) {
       id
-      skill
       gameid
       skill_name
       skill_state
@@ -230,7 +228,6 @@ export const deleteOnGameSkill = /* GraphQL */ `
   ) {
     deleteOnGameSkill(input: $input, condition: $condition) {
       id
-      skill
       gameid
       skill_name
       skill_state
