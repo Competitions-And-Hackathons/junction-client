@@ -23,7 +23,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state  = {
-      client_state : "playing",
+      client_state : "playing",    // "playing" for test, 원래는 "init"
       player: [
         {num: "1", id: "KJM", x: "1", enemy: "Enemy"},
         {num: "2", id: "SDS", x: "2", enemy: "Enemy"},
@@ -212,7 +212,8 @@ class App extends Component {
     const playerData = await API.graphql(graphqlOperation(listOnGameSessions));
     let playerList = playerData.data.listOnGameSessions.items;
     console.log('player list', playerList);
-    // DB
+   
+    // 정보 읽어어와서 setState로 playerList채우기!!!
   }
 
   async loadGameData(){
@@ -450,61 +451,6 @@ class App extends Component {
               <div class="item"><span font-size><img src="resource/images/missile.png"/></span></div>
               <div class="item"><span font-size><img src="resource/images/doom.png"/></span></div>
           </div>
-
-
-
-
-          {/*<div className="player_rank">
-            <div className="player_info">
-              <span className="player_num">{this.state.player[0].num}.</span>
-              <span className="player_id">{this.state.player[0].id}</span>
-              <span className="player_enemy">{this.state.player[0].enemy}</span>
-              <span className="player_x1">Player is on {this.state.player[0].x}</span>
-            </div>
-            <div className="player_info">
-              <span className="player_num">{this.state.player[1].num}.</span>
-              <span className="player_id">{this.state.player[1].id}</span>
-              <span className="player_enemy">{this.state.player[1].enemy}</span>
-              <span className="player_x2">Player is on {this.state.player[1].x}</span>
-            </div>
-            <div className="player_info">
-              <span className="player_num">{this.state.player[2].num}.</span>
-              <span className="player_id">{this.state.player[2].id}</span>
-              <span className="player_enemy">{this.state.player[2].enemy}</span>
-              <span className="player_x3">Player is on {this.state.player[2].x}</span>
-            </div>
-            <div className="player_info">
-              <span className="player_num">{this.state.player[3].num}.</span>
-              <span className="player_id">{this.state.player[3].id}</span>
-              <span className="player_enemy">{this.state.player[3].enemy}</span>
-              <span className="player_x4">Player is on {this.state.player[3].x}</span>
-            </div>
-      </div>*/}
-
-
-          {/*<div className="row">
-            <div className="column">
-              <div className="custom_button" onClick={()=> this.moveChatacter()}> MOVE!!!</div>
-            </div>
-          </div>*/}
-
-          {/* 스킬이 역순인 점 조심 */}
-          {/*<div className="skill_box_first">
-            <span className="skill_R" font-size><img src="resource/images/infinite.png"/></span>
-          </div>
-
-          <div className="skill_box">
-            <span className="skill_E" font-size><img src="resource/images/hammer.png"/></span>
-          </div>
-
-          <div className="skill_box">
-            <span className="skill_W" font-size><img src="resource/images/missile.png"/></span>
-          </div>
-
-          <div className="skill_box">
-            <span className="skill_Q" font-size><img src="resource/images/doom.png"/></span>
-          </div>
-        */}
 
         </header>
 
