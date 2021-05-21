@@ -28,3 +28,21 @@
   background-color: skyblue;
   
 }
+
+.tracks{
+  align-items: center;
+}
+
+.track_line{
+  background-color: brown;
+  width: 60vw;
+  height: 5px;
+  margin: 0 auto;
+}
+
+.track{
+  background-color: lightgreen;
+  width: 60vw;
+  height: 5vw;
+  margin: 0 auto;
+}

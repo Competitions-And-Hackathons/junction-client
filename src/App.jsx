@@ -23,7 +23,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state  = {
-      client_state : "init"
+      client_state : "playing"
     }
   }
   sleep(delay){
@@ -190,23 +190,34 @@ class App extends Component {
     }
     else if (this.state.client_state === "playing"){
       return (
-        <div className="App">
-          <header className="App-header">
+
+
+        <header>
   
-            <h1>Game Playing</h1>
+
+            <div className="track_line"></div>
+            <div className="track"></div>
+            <div className="track_line"></div>
+            <div className="track"></div>
+            <div className="track_line"></div>
+            <div className="track"></div>
+            <div className="track_line"></div>
+            <div className="track"></div>
+            <div className="track_line"></div>
+
+
             
-          </header>
-        </div>
+        </header>
+
+        
+        
+ 
       );
     }
     else if (this.state.client_state === "endgame"){
       return (
         <div className="App">
-          <header className="App-header">
-  
-            <h1>Game Ended</h1>
-            
-          </header>
+          <h1>Game Ended</h1>
         </div>
       );
     }
