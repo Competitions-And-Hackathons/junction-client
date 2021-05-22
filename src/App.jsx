@@ -42,11 +42,11 @@ class App extends Component {
       skill_name_4: "none",
 
       skill_dict: [
-        {id: 'tanos', name: 'I love you 1500', desc: '상대방 1명이 이때까지 온 거리를 절반으로 줄입니다.'},
-        {id: 'backdoor', name: '어디로든 문', desc: '나와 상대방의 위치를 바꿉니다.'},
-        {id: 'infinite', name: 'MooYaHo', desc: '나를 제외한 모든 플레이어를 3블럭 뒤로 보냅니다.'},
-        {id: 'shoot', name: '안 되겠소. 쏩시다!', desc: '상대방 한 명을 즉시 사살합니다. (사망 시, 처음부터 다시 시작)'},
-        {id: 'doom', name: '함께 폭사하자', desc: '모든 플레이어를 사살합니다. (사망 시, 처음부터 다시 시작)'}
+        {id: 'tanos', name: 'I LOVE YOU 1500', desc: 'Move the target back away. (50%)'},
+        {id: 'backdoor', name: 'WHEREVER DOOR', desc: 'Swap position with the target.'},
+        {id: 'infinite', name: 'MOOYAHOO', desc: 'Send all players back except me.'},
+        {id: 'shoot', name: 'BANG', desc: ' Kill the target.'},
+        {id: 'doom', name: 'DOOM', desc: "Let's die together!"}
       ],
 
       skill_name_1_resource: "resource/images/none.png",
@@ -1293,7 +1293,11 @@ class App extends Component {
             <div className="custom_button" onClick={()=> this.loginGame()}> Start Game </div> 
   
             <h1>Go to Dash Board</h1>
-            <div className="custom_button"> Dash Board </div> 
+            <div className="custom_button">
+              <a href="https://ljz8006s1e.execute-api.ap-northeast-2.amazonaws.com/test/dashboard-embed-sample">
+                Dash Board 
+              </a>
+            </div> 
   
     
             <h1>Log Out</h1>

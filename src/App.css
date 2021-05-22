@@ -146,7 +146,7 @@ span img{
   margin-left: 20%;
   margin-right: 20%;
   display: grid;
-  grid-template-columns: 1vw 20vw 11vw 4vw 6vw 6vw 6vw 6vw;
+  grid-template-columns: 1vw 20vw 12vw 3vw 6vw 6vw 6vw 6vw;
   grid-template-rows: repeat(8, 2.2vw);
 }
 
