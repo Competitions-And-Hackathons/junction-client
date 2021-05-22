@@ -1211,6 +1211,10 @@ class App extends Component {
     var Enemy3 = "Enemy";
     var Enemy4 = "Enemy";
 
+    var rank = ["1st", "1st", "1st", "1st"];
+    var player_x = [this.state.player1_x, this.state.player2_x, this.state.player3_x, this.state.player4_x];
+    var sort_x = [this.state.player1_x, this.state.player2_x, this.state.player3_x, this.state.player4_x];
+
     if (this.state.player1_id === this.state.username){
       Enemy1 = "You";
     }
@@ -1223,6 +1227,27 @@ class App extends Component {
     else if (this.state.player4_id === this.state.username){
       Enemy4 = "You";
     }
+
+    sort_x.sort()
+    for (var i=0; i<player_x.length; i++){
+      if (sort_x[3] === player_x[i]){
+        rank[i] = "1st";
+      }
+      else if (sort_x[2] === player_x[i]){
+        rank[i] = "2nd";
+      }
+      else if (sort_x[1] === player_x[i]){
+        rank[i] = "3rd";
+      }
+      else if (sort_x[0] === player_x[i]){
+        rank[i] = "4th";
+      }
+      
+    }
+
+    
+    
+
 
 
     if (this.state.client_state === "init"){
@@ -1338,10 +1363,10 @@ class App extends Component {
           </div>
 
           <div className="container">
-              <div className="item">1.</div>
-              <div className="item">2.</div>
-              <div className="item">3.</div>
-              <div className="item">4.</div>
+              <div className="item">{rank[0]}</div>
+              <div className="item">{rank[1]}</div>
+              <div className="item">{rank[2]}</div>
+              <div className="item">{rank[3]}</div>
 
               <div className="item">{this.state.player1_id}</div>
               <div className="item">{this.state.player2_id}</div>
