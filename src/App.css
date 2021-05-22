@@ -78,10 +78,10 @@ body{
 .track_info_text_has_margin{
   font-weight: bold;
   font-size: 1.7vw;
-  text-align: left;
+  text-align: right;
   vertical-align: bottom;
 
-  margin-left: 15.5%;
+  margin-left: 15%;
 }
 
 .player-container{

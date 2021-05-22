@@ -1386,7 +1386,7 @@ class App extends Component {
               <div className="track_info_line"></div>
 
               <div className="track_info_line">
-                
+                <span className="track_info_text">START</span>
                 <span className="track_info_text_has_margin">SKILL</span>
                 <span className="track_info_text_has_margin">SKILL</span>
                 <span className="track_info_text_has_margin">SKILL</span>
@@ -1499,7 +1499,7 @@ class App extends Component {
               <div className="track_info_line"></div>
 
               <div className="track_info_line">
-                
+                <span className="track_info_text">START</span>
                 <span className="track_info_text_has_margin">SKILL</span>
                 <span className="track_info_text_has_margin">SKILL</span>
                 <span className="track_info_text_has_margin">SKILL</span>
