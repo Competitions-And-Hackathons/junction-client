@@ -66,6 +66,16 @@ class App extends Component {
     }
   }
 
+   SoundPlay(src, volume) {
+   
+    const sound = new Howl({ src })
+   
+    sound.volume(volume);
+    sound.play();
+    
+   }
+  
+  
   skillInfo(name){
     switch (name) {
       case "tanos":
@@ -1028,6 +1038,30 @@ class App extends Component {
       "source_player":this.state.my_number,
       "target_player":target_player
     }
+    
+    const  sound_tanos = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/210943d9-3cf9-446e-987e-389bf8ca3131/tanos.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T144312Z&X-Amz-Expires=86400&X-Amz-Signature=dbd671ec5bc3459e506b366083077e8333878281e376cbb1e6d36af64a5ccb19&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22tanos.mp3%22"
+    const  sound_backdoor = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/32ff0ee0-28f8-4b76-8b1f-d37e063ce639/anywherer_door.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T144420Z&X-Amz-Expires=86400&X-Amz-Signature=a1a572a8542f5845281f9328e0f7fc103b1c9b50aeaf232266d329defbd4fb9b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22anywherer_door.mp3%22"
+    const sound_infinite = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/da40031f-2229-47b6-8d06-9e727683e281/mooyaho.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T152245Z&X-Amz-Expires=86400&X-Amz-Signature=95798930eb0fbb1235facbf882c5915aedb86375f951aff811bf8d6c48bcb7ac&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22mooyaho.mp3%22"
+    const sound_shoot = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2f3a9102-503e-4956-a5a3-a496e55068f8/no_shoot.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T144634Z&X-Amz-Expires=86400&X-Amz-Signature=52cc51b5e011384183b2de05b0232ddcef4229dae2a70e045cd7753ac6474ba6&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22no_shoot.mp3%22"
+    const sound_doom = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/35e765d2-fa5c-4a4b-a9b7-bb7d322eabbc/bomb.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T144726Z&X-Amz-Expires=86400&X-Amz-Signature=46d2ac9ae9a77352595ad5928f0ce5d578f0f3339c4dc81d4c3ad7658de3bc1f&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22bomb.mp3%22"
+    const skill = skill_name;                   
+
+    if (skill == "tanos") {    
+        this.SoundPlay(sound_tanos, 60);
+    }
+    else if (skill == "backdoor") {  
+        this.SoundPlay(sound_backdoor, 40);
+    }
+    else if (skill == "infinite") {       
+        this.SoundPlay(sound_infinite, 0.7);
+    }
+    else if (skill == "shoot") {    
+        this.SoundPlay(sound_shoot, 1);
+    }
+    else if (skill == "doom") {
+        this.SoundPlay(sound_doom, 1);
+    } 
+
     
     await API.graphql(graphqlOperation(createOnGameSkill, {input: newSkillInput}));
     
