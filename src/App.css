@@ -390,3 +390,19 @@ span img{
 .skill_box:hover{
   background-color: skyblue;
 }
+
+.IsWin {
+  text-align: center;
+}
+
+.IsWin h1{
+  font-size : 100px;
+}
+
+.IsWin h2{
+  font-size : 50px;
+}
+
+.IsWin img{
+  
+}
