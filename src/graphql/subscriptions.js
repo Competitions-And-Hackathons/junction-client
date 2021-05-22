@@ -112,6 +112,7 @@ export const onCreateOnGameSession = /* GraphQL */ `
       player3_x
       player4_id
       player4_x
+      turn
       createdAt
       updatedAt
     }
@@ -129,6 +130,7 @@ export const onUpdateOnGameSession = /* GraphQL */ `
       player3_x
       player4_id
       player4_x
+      turn
       createdAt
       updatedAt
     }
@@ -146,6 +148,7 @@ export const onDeleteOnGameSession = /* GraphQL */ `
       player3_x
       player4_id
       player4_x
+      turn
       createdAt
       updatedAt
     }

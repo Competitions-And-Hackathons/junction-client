@@ -187,6 +187,7 @@ class App extends Component {
         "player3_x": 0,
         "player4_id": sessionWaiting[3].userid,
         "player4_x": 0,
+        "turn": 0,
       }
       await API.graphql(graphqlOperation(createOnGameSession, {input: createOnGameSessionInput}));
 

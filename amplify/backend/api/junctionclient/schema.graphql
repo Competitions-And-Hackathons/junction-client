@@ -28,6 +28,7 @@ type OnGameSession @model {
   player4_id: String!
   player4_x: Int!
 
+  turn: Int!
 }
 
 type OnGameSkill @model {

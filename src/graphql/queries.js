@@ -104,6 +104,7 @@ export const getOnGameSession = /* GraphQL */ `
       player3_x
       player4_id
       player4_x
+      turn
       createdAt
       updatedAt
     }
@@ -126,6 +127,7 @@ export const listOnGameSessions = /* GraphQL */ `
         player3_x
         player4_id
         player4_x
+        turn
         createdAt
         updatedAt
       }
