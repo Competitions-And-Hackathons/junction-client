@@ -43,6 +43,7 @@ type OnGameSkill @model {
 type SkillSummary @model {
   id : ID!
   gameid: String!
+  clear_rate: Float!
   sourced_tanos: Int!
   sourced_backdoor: Int!
   sourced_infinite: Int!

@@ -198,6 +198,7 @@ export const onCreateSkillSummary = /* GraphQL */ `
     onCreateSkillSummary {
       id
       gameid
+      clear_rate
       sourced_tanos
       sourced_backdoor
       sourced_infinite
@@ -218,6 +219,7 @@ export const onUpdateSkillSummary = /* GraphQL */ `
     onUpdateSkillSummary {
       id
       gameid
+      clear_rate
       sourced_tanos
       sourced_backdoor
       sourced_infinite
@@ -238,6 +240,7 @@ export const onDeleteSkillSummary = /* GraphQL */ `
     onDeleteSkillSummary {
       id
       gameid
+      clear_rate
       sourced_tanos
       sourced_backdoor
       sourced_infinite

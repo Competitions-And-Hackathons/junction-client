@@ -246,6 +246,7 @@ export const createSkillSummary = /* GraphQL */ `
     createSkillSummary(input: $input, condition: $condition) {
       id
       gameid
+      clear_rate
       sourced_tanos
       sourced_backdoor
       sourced_infinite
@@ -269,6 +270,7 @@ export const updateSkillSummary = /* GraphQL */ `
     updateSkillSummary(input: $input, condition: $condition) {
       id
       gameid
+      clear_rate
       sourced_tanos
       sourced_backdoor
       sourced_infinite
@@ -292,6 +294,7 @@ export const deleteSkillSummary = /* GraphQL */ `
     deleteSkillSummary(input: $input, condition: $condition) {
       id
       gameid
+      clear_rate
       sourced_tanos
       sourced_backdoor
       sourced_infinite

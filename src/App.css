@@ -332,3 +332,15 @@ span img{
   font-size: 2vw;
   border: 3px solid #FF0000;
 }
+
+.skill_box:hover{
+  background-color: skyblue;
+}
+
+span img{
+  float: center;
+  width: 4vw;
+  height : 4vw;
+  margin-left : 0.5vw;
+  margin-top : 0.5vw;
+}

@@ -173,6 +173,7 @@ export const getSkillSummary = /* GraphQL */ `
     getSkillSummary(id: $id) {
       id
       gameid
+      clear_rate
       sourced_tanos
       sourced_backdoor
       sourced_infinite
@@ -198,6 +199,7 @@ export const listSkillSummarys = /* GraphQL */ `
       items {
         id
         gameid
+        clear_rate
         sourced_tanos
         sourced_backdoor
         sourced_infinite

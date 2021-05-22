@@ -29,7 +29,20 @@ class App extends Component {
         {num: "2", id: "SDS", x: "2", enemy: "Enemy"},
         {num: "3", id: "YJH", x: "3", enemy: "YOU"},
         {num: "4", id: "LYJ", x: "4", enemy: "Enemy"},
-      ]
+      ],
+      client_state : "init",
+      skill_toggle_state : 0,
+      is_used_skill : false,
+
+      skill_name_1: "none",
+      skill_name_2: "none",
+      skill_name_3: "none",
+      skill_name_4: "none",
+
+      got_skill_1 : false,
+      got_skill_2 : false,
+      got_skill_3 : false,
+      got_skill_4 : false
     }
   }
   sleep(delay){
@@ -321,7 +334,36 @@ class App extends Component {
 
   }
 
-  
+  changeTogggle(skill_toggle_index){
+    this.setState({skill_toggle_state: skill_toggle_index});
+  }
+
+  checkGetSkill(){
+    if (this.state.my_number == 1){
+      if ((this.state.player1_x <= 0) && (this.state.got_skill_1 == false)){
+        
+      }
+    }
+    else if (this.state.my_number == 2){
+      console.log(this.state.player2_x);
+    }
+    else if (this.state.my_number == 3){
+      console.log(this.state.player3_x);
+    }
+    else if (this.state.my_number == 4){
+      console.log(this.state.player4_x);
+    }
+  }
+
+  resetSkills(){
+    for (let skill_index = 0; skill_index<4; skill_index++){
+      let random_int = Math.random() * (100)
+
+      if (random_int <= this.state.gameSetting[0].tanos){
+
+      }
+    }
+  }
 
   render(){
     if (this.state.client_state === "init"){
@@ -444,7 +486,7 @@ class App extends Component {
               <div class="item">{this.state.player[3].enemy}</div>
               <div class="item">Player is on {this.state.player[3].x}</div>
 
-              <div class="item" onClick={()=> this.moveChatacter()}>MOVE!!!</div>            
+              <div class="item" onClick={()=> this.moveChatacter()}>MOVE!!!!!!</div>            
         
               <div class="item"><span font-size><img src="resource/images/infinite.png"/></span></div>
               <div class="item"><span font-size><img src="resource/images/hammer.png"/></span></div>
