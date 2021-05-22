@@ -16,7 +16,6 @@ import {v4 as uuid} from 'uuid'
 
 //UIs
 import { TextField } from '@material-ui/core';
-import Enemy from './Enemy';
 
 Amplify.configure(awsconfig);
 
@@ -270,22 +269,185 @@ class App extends Component {
 
           else if (apply_skill_name === "backdoor"){
             if (this.state.my_number == 1){
+              if (skill_to_apply.source_player == 2){
+                const old_source_x = this.state.player2_x;
+                const old_target_x = this.state.player1_x;
 
+                this.setState({player2_x : old_target_x});
+                this.setState({player1_x : old_source_x});
+
+              }
+              else if (skill_to_apply.source_player == 3){
+                const old_source_x = this.state.player3_x;
+                const old_target_x = this.state.player1_x;
+
+                this.setState({player3_x : old_target_x});
+                this.setState({player1_x : old_source_x});
+
+              }
+              else if (skill_to_apply.source_player == 4){
+                const old_source_x = this.state.player4_x;
+                const old_target_x = this.state.player1_x;
+
+                this.setState({player4_x : old_target_x});
+                this.setState({player1_x : old_source_x});
+
+              }
+            }
+
+            else if (this.state.my_number == 2){
+              if (skill_to_apply.source_player == 1){
+                const old_source_x = this.state.player1_x;
+                const old_target_x = this.state.player2_x;
+
+                this.setState({player1_x : old_target_x});
+                this.setState({player2_x : old_source_x});
+
+              }
+              else if (skill_to_apply.source_player == 3){
+                const old_source_x = this.state.player3_x;
+                const old_target_x = this.state.player2_x;
+
+                this.setState({player3_x : old_target_x});
+                this.setState({player2_x : old_source_x});
+
+              }
+              else if (skill_to_apply.source_player == 4){
+                const old_source_x = this.state.player4_x;
+                const old_target_x = this.state.player2_x;
+
+                this.setState({player4_x : old_target_x});
+                this.setState({player2_x : old_source_x});
+
+              }
+            }
+
+            else if (this.state.my_number == 3){
+              if (skill_to_apply.source_player == 1){
+                const old_source_x = this.state.player1_x;
+                const old_target_x = this.state.player3_x;
+  
+                this.setState({player1_x : old_target_x});
+                this.setState({player3_x : old_source_x});
+  
+              }
+              else if (skill_to_apply.source_player == 2){
+                const old_source_x = this.state.player2_x;
+                const old_target_x = this.state.player3_x;
+  
+                this.setState({player2_x : old_target_x});
+                this.setState({player3_x : old_source_x});
+  
+              }
+              else if (skill_to_apply.source_player == 4){
+                const old_source_x = this.state.player4_x;
+                const old_target_x = this.state.player3_x;
+  
+                this.setState({player4_x : old_target_x});
+                this.setState({player3_x : old_source_x});
+  
+              }
+            }
+
+            else  if (this.state.my_number == 4){
+              if (skill_to_apply.source_player == 1){
+                const old_source_x = this.state.player1_x;
+                const old_target_x = this.state.player4_x;
+
+                this.setState({player1_x : old_target_x});
+                this.setState({player4_x : old_source_x});
+
+              }
+              else if (skill_to_apply.source_player == 2){
+                const old_source_x = this.state.player2_x;
+                const old_target_x = this.state.player4_x;
+
+                this.setState({player2_x : old_target_x});
+                this.setState({player4_x : old_source_x});
+
+              }
+              else if (skill_to_apply.source_player == 3){
+                const old_source_x = this.state.player3_x;
+                const old_target_x = this.state.player4_x;
+
+                this.setState({player3_x : old_target_x});
+                this.setState({player4_x : old_source_x});
+
+              }
+            }
+          }
+
+          else if (apply_skill_name === "infinite"){
+            if (this.state.my_number == 1){
+              let new_x = this.state.player1_x - 200;
+              if (new_x < 0){new_x = 0;}
+
+              this.setState({player1_x : new_x});
+            }
+
+            else if (this.state.my_number == 2){
+              let new_x = this.state.player2_x - 200;
+              if (new_x < 0){new_x = 0;}
+
+              this.setState({player2_x : new_x});
+            }
+
+            else if (this.state.my_number == 3){
+              let new_x = this.state.player3_x - 200;
+              if (new_x < 0){new_x = 0;}
+
+              this.setState({player3_x : new_x});
+            }
+
+            else if (this.state.my_number == 4){
+              let new_x = this.state.player4_x - 200;
+              if (new_x < 0){new_x = 0;}
+
+              this.setState({player4_x : new_x});
+            }
+          }
+
+          else if (apply_skill_name === "shoot" || apply_skill_name === "doom"){
+            if (this.state.my_number == 1){
+
+              this.setState({got_skill_1 : 0});
+              this.setState({got_skill_2 : 0});
+              this.setState({got_skill_3 : 0});
+              this.setState({got_skill_4 : 0});
+
+              this.setState({player1_x : 0});
             }
 
             else if (this.state.my_number == 2){
 
+              this.setState({got_skill_1 : 0});
+              this.setState({got_skill_2 : 0});
+              this.setState({got_skill_3 : 0});
+              this.setState({got_skill_4 : 0});
+
+              this.setState({player2_x : 0});
             }
 
             else if (this.state.my_number == 3){
 
+              this.setState({got_skill_1 : 0});
+              this.setState({got_skill_2 : 0});
+              this.setState({got_skill_3 : 0});
+              this.setState({got_skill_4 : 0});
+
+              this.setState({player3_x : 0});
             }
 
             else if (this.state.my_number == 4){
 
+              this.setState({got_skill_1 : 0});
+              this.setState({got_skill_2 : 0});
+              this.setState({got_skill_3 : 0});
+              this.setState({got_skill_4 : 0});
+
+              this.setState({player4_x : 0});
             }
           }
-
 
 
           skill_to_apply.skill_state = "applied"
@@ -405,18 +567,10 @@ class App extends Component {
         }
       }
       else if (this.state.skill_name_1 == "doom"){
-        if (this.state.my_number != 1){
-          await this.spell_skill("doom", 1);
-        }
-        if (this.state.my_number != 2){
-          await this.spell_skill("doom", 2);
-        }
-        if (this.state.my_number != 3){
-          await this.spell_skill("doom", 3);
-        }
-        if (this.state.my_number != 4){
-          await this.spell_skill("doom", 4);
-        }
+        await this.spell_skill("doom", 1);
+        await this.spell_skill("doom", 2);
+        await this.spell_skill("doom", 3);
+        await this.spell_skill("doom", 4);
       }
       else{
         this.setState({skill_toggle_state: skill_toggle_index});
@@ -444,18 +598,10 @@ class App extends Component {
         }
       }
       else if (this.state.skill_name_2 == "doom"){
-        if (this.state.my_number != 1){
-          await this.spell_skill("doom", 1);
-        }
-        if (this.state.my_number != 2){
-          await this.spell_skill("doom", 2);
-        }
-        if (this.state.my_number != 3){
-          await this.spell_skill("doom", 3);
-        }
-        if (this.state.my_number != 4){
-          await this.spell_skill("doom", 4);
-        }
+        await this.spell_skill("doom", 1);
+        await this.spell_skill("doom", 2);
+        await this.spell_skill("doom", 3);
+        await this.spell_skill("doom", 4);
       }
       else{
         this.setState({skill_toggle_state: skill_toggle_index});
@@ -483,18 +629,10 @@ class App extends Component {
         }
       }
       else if (this.state.skill_name_3 == "doom"){
-        if (this.state.my_number != 1){
-          await this.spell_skill("doom", 1);
-        }
-        if (this.state.my_number != 2){
-          await this.spell_skill("doom", 2);
-        }
-        if (this.state.my_number != 3){
-          await this.spell_skill("doom", 3);
-        }
-        if (this.state.my_number != 4){
-          await this.spell_skill("doom", 4);
-        }
+        await this.spell_skill("doom", 1);
+        await this.spell_skill("doom", 2);
+        await this.spell_skill("doom", 3);
+        await this.spell_skill("doom", 4);
       }
       else{
         this.setState({skill_toggle_state: skill_toggle_index});
@@ -522,18 +660,10 @@ class App extends Component {
         }
       }
       else if (this.state.skill_name_4 == "doom"){
-        if (this.state.my_number != 1){
-          await this.spell_skill(skill_toggle_index, 1);
-        }
-        if (this.state.my_number != 2){
-          await this.spell_skill(skill_toggle_index, 2);
-        }
-        if (this.state.my_number != 3){
-          await this.spell_skill(skill_toggle_index, 3);
-        }
-        if (this.state.my_number != 4){
-          await this.spell_skill(skill_toggle_index, 4);
-        }
+        await this.spell_skill("doom", 1);
+        await this.spell_skill("doom", 2);
+        await this.spell_skill("doom", 3);
+        await this.spell_skill("doom", 4);
       }
       else{
         this.setState({skill_toggle_state: skill_toggle_index});
