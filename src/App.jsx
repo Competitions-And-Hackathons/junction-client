@@ -263,6 +263,8 @@ class App extends Component {
         this.setState({my_number : 4});
       }
 
+      this.setState({turn : parseInt(my_game.turn)});
+
 
 
       this.getGameSettingData()
@@ -519,7 +521,7 @@ class App extends Component {
   }
 
   async moveChatacter(){
-    await this.loadGameData();
+    //await this.loadGameData();
     
     if (this.state.my_number === 1){
 
@@ -539,6 +541,11 @@ class App extends Component {
         const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
         this.setState({player1_x : parseInt(my_game.player1_x)});
+        this.setState({player2_x : parseInt(my_game.player2_x)});
+        this.setState({player3_x : parseInt(my_game.player3_x)});
+        this.setState({player4_x : parseInt(my_game.player4_x)});
+        this.setState({turn : parseInt(my_game.turn)});
+        
       }
       else{
         this.setState({isWinng : false});
@@ -565,7 +572,12 @@ class App extends Component {
 
         const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
+        this.setState({player1_x : parseInt(my_game.player1_x)});
         this.setState({player2_x : parseInt(my_game.player2_x)});
+        this.setState({player3_x : parseInt(my_game.player3_x)});
+        this.setState({player4_x : parseInt(my_game.player4_x)});
+        this.setState({turn : parseInt(my_game.turn)});
+
       }
       else{
         this.setState({isWinng : false});
@@ -592,7 +604,11 @@ class App extends Component {
 
         const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
+        this.setState({player1_x : parseInt(my_game.player1_x)});
+        this.setState({player2_x : parseInt(my_game.player2_x)});
         this.setState({player3_x : parseInt(my_game.player3_x)});
+        this.setState({player4_x : parseInt(my_game.player4_x)});
+        this.setState({turn : parseInt(my_game.turn)});
       }
       else{
         this.setState({isWinng : false});
@@ -619,7 +635,11 @@ class App extends Component {
 
         const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
+        this.setState({player1_x : parseInt(my_game.player1_x)});
+        this.setState({player2_x : parseInt(my_game.player2_x)});
+        this.setState({player3_x : parseInt(my_game.player3_x)});
         this.setState({player4_x : parseInt(my_game.player4_x)});
+        this.setState({turn : parseInt(my_game.turn)});
       }
       else{
         this.setState({isWinng : false});
@@ -765,15 +785,15 @@ class App extends Component {
         this.state.got_skill_1 = true;
       }*/
       if ((this.state.player1_x >= 222) && (this.state.got_skill_2 === false)){
-        this.resetSkills();
+        await this.resetSkills();
         this.state.got_skill_2 = true;
       }
       else if ((this.state.player1_x >= 450) && (this.state.got_skill_3 === false)){
-        this.resetSkills();
+        await this.resetSkills();
         this.state.got_skill_3 = true;
       }
       else if ((this.state.player1_x >= 670) && (this.state.got_skill_4 === false)){
-        this.resetSkills();
+        await this.resetSkills();
         this.state.got_skill_4 = true;
       }
       else if ((this.state.player1_x >= 900)){
@@ -787,15 +807,15 @@ class App extends Component {
         this.state.got_skill_1 = true;
       }*/
       if ((this.state.player2_x >= 222) && (this.state.got_skill_2 === false)){
-        this.resetSkills();
+        await this.resetSkills();
         this.state.got_skill_2 = true;
       }
       else if ((this.state.player2_x >= 450) && (this.state.got_skill_3 === false)){
-        this.resetSkills();
+        await this.resetSkills();
         this.state.got_skill_3 = true;
       }
       else if ((this.state.player2_x >= 670) && (this.state.got_skill_4 === false)){
-        this.resetSkills();
+        await this.resetSkills();
         this.state.got_skill_4 = true;
       }
       else if ((this.state.player2_x >= 900)){
@@ -809,15 +829,15 @@ class App extends Component {
         this.state.got_skill_1 = true;
       }*/
       if ((this.state.player3_x >= 222) && (this.state.got_skill_2 === false)){
-        this.resetSkills();
+        await this.resetSkills();
         this.state.got_skill_2 = true;
       }
       else if ((this.state.player3_x >= 450) && (this.state.got_skill_3 === false)){
-        this.resetSkills();
+        await this.resetSkills();
         this.state.got_skill_3 = true;
       }
       else if ((this.state.player3_x >= 670) && (this.state.got_skill_4 === false)){
-        this.resetSkills();
+        await this.resetSkills();
         this.state.got_skill_4 = true;
       }
       else if ((this.state.player3_x >= 900)){
@@ -831,15 +851,15 @@ class App extends Component {
         this.state.got_skill_1 = true;
       }*/
       if ((this.state.player4_x >= 222) && (this.state.got_skill_2 === false)){
-        this.resetSkills();
+        await this.resetSkills();
         this.state.got_skill_2 = true;
       }
       else if ((this.state.player4_x >= 450) && (this.state.got_skill_3 === false)){
-        this.resetSkills();
+        await this.resetSkills();
         this.state.got_skill_3 = true;
       }
       else if ((this.state.player4_x >= 670) && (this.state.got_skill_4 === false)){
-        this.resetSkills();
+        await this.resetSkills();
         this.state.got_skill_4 = true;
       }
       else if ((this.state.player4_x >= 900)){
@@ -848,7 +868,7 @@ class App extends Component {
     }
   }
   
-  resetSkills(){
+async resetSkills(){
 
       let random_int = Math.random() * (100)
 
@@ -1010,6 +1030,27 @@ class App extends Component {
       }
 
       this.setState({turn: 1});
+
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+
+      if (my_game!==undefined){
+        my_game.turn = 1;
+
+
+        delete my_game.createdAt;
+        delete my_game.updatedAt;
+
+        await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+
+      }
+      else{
+        this.setState({isWinng : false});
+        this.changeState("endgame");
+      }
+
 
       this.reset_skill_resource_path();
   }
