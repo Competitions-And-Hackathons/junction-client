@@ -42,7 +42,7 @@ class App extends Component {
       skill_name_4: "none",
 
       skill_dict: [
-        {id: 'tanos', name: 'I LOVE YOU 1500', desc: 'Move the target back away. (50%)'},
+        {id: 'tanos', name: 'I LOVE YOU 1500', desc: 'Move the target back away.'},
         {id: 'backdoor', name: 'WHEREVER DOOR', desc: 'Swap position with the target.'},
         {id: 'infinite', name: 'MOOYAHOO', desc: 'Send all players back except me.'},
         {id: 'shoot', name: 'BANG', desc: ' Kill the target.'},
