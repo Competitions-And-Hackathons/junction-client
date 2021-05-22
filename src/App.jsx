@@ -531,20 +531,31 @@ class App extends Component {
       const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
       if (my_game!==undefined){
-        my_game.player1_x = this.state.player1_x + this.state.gameSetting[0].speed;
+
+        if (this.state.turn == 0){
+          my_game.player1_x = this.state.player1_x + this.state.gameSetting[0].speed;
 
 
-        delete my_game.createdAt;
-        delete my_game.updatedAt;
+          delete my_game.createdAt;
+          delete my_game.updatedAt;
 
 
-        const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+          const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
-        this.setState({player1_x : parseInt(my_game.player1_x)});
-        this.setState({player2_x : parseInt(my_game.player2_x)});
-        this.setState({player3_x : parseInt(my_game.player3_x)});
-        this.setState({player4_x : parseInt(my_game.player4_x)});
-        this.setState({turn : parseInt(my_game.turn)});
+          this.setState({player1_x : parseInt(my_game.player1_x)});
+          this.setState({player2_x : parseInt(my_game.player2_x)});
+          this.setState({player3_x : parseInt(my_game.player3_x)});
+          this.setState({player4_x : parseInt(my_game.player4_x)});
+          this.setState({turn : parseInt(my_game.turn)});
+        }
+        else{
+          this.setState({player1_x : parseInt(my_game.player1_x)});
+          this.setState({player2_x : parseInt(my_game.player2_x)});
+          this.setState({player3_x : parseInt(my_game.player3_x)});
+          this.setState({player4_x : parseInt(my_game.player4_x)});
+          this.setState({turn : parseInt(my_game.turn)});
+        }
+        
         
       }
       else{
@@ -563,21 +574,29 @@ class App extends Component {
 
       if (my_game!==undefined){
 
-        my_game.player2_x = this.state.player2_x + this.state.gameSetting[0].speed;
+        if (this.state.turn == 0){
+          my_game.player2_x = this.state.player2_x + this.state.gameSetting[0].speed;
 
 
-        delete my_game.createdAt;
-        delete my_game.updatedAt;
+          delete my_game.createdAt;
+          delete my_game.updatedAt;
 
 
-        const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+          const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
-        this.setState({player1_x : parseInt(my_game.player1_x)});
-        this.setState({player2_x : parseInt(my_game.player2_x)});
-        this.setState({player3_x : parseInt(my_game.player3_x)});
-        this.setState({player4_x : parseInt(my_game.player4_x)});
-        this.setState({turn : parseInt(my_game.turn)});
-
+          this.setState({player1_x : parseInt(my_game.player1_x)});
+          this.setState({player2_x : parseInt(my_game.player2_x)});
+          this.setState({player3_x : parseInt(my_game.player3_x)});
+          this.setState({player4_x : parseInt(my_game.player4_x)});
+          this.setState({turn : parseInt(my_game.turn)});
+        }
+        else{
+          this.setState({player1_x : parseInt(my_game.player1_x)});
+          this.setState({player2_x : parseInt(my_game.player2_x)});
+          this.setState({player3_x : parseInt(my_game.player3_x)});
+          this.setState({player4_x : parseInt(my_game.player4_x)});
+          this.setState({turn : parseInt(my_game.turn)});
+        }
       }
       else{
         this.setState({isWinng : false});
@@ -595,20 +614,29 @@ class App extends Component {
       if (my_game!==undefined){
 
 
-        my_game.player3_x = this.state.player3_x + this.state.gameSetting[0].speed;
+        if (this.state.turn == 0){
+          my_game.player3_x = this.state.player3_x + this.state.gameSetting[0].speed;
 
 
-        delete my_game.createdAt;
-        delete my_game.updatedAt;
+          delete my_game.createdAt;
+          delete my_game.updatedAt;
 
 
-        const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+          const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
-        this.setState({player1_x : parseInt(my_game.player1_x)});
-        this.setState({player2_x : parseInt(my_game.player2_x)});
-        this.setState({player3_x : parseInt(my_game.player3_x)});
-        this.setState({player4_x : parseInt(my_game.player4_x)});
-        this.setState({turn : parseInt(my_game.turn)});
+          this.setState({player1_x : parseInt(my_game.player1_x)});
+          this.setState({player2_x : parseInt(my_game.player2_x)});
+          this.setState({player3_x : parseInt(my_game.player3_x)});
+          this.setState({player4_x : parseInt(my_game.player4_x)});
+          this.setState({turn : parseInt(my_game.turn)});
+        }
+        else{
+          this.setState({player1_x : parseInt(my_game.player1_x)});
+          this.setState({player2_x : parseInt(my_game.player2_x)});
+          this.setState({player3_x : parseInt(my_game.player3_x)});
+          this.setState({player4_x : parseInt(my_game.player4_x)});
+          this.setState({turn : parseInt(my_game.turn)});
+        }
       }
       else{
         this.setState({isWinng : false});
@@ -626,20 +654,29 @@ class App extends Component {
       if (my_game!==undefined){
 
 
-        my_game.player4_x = this.state.player4_x + this.state.gameSetting[0].speed;
+        if (this.state.turn == 0){
+          my_game.player4_x = this.state.player4_x + this.state.gameSetting[0].speed;
 
 
-        delete my_game.createdAt;
-        delete my_game.updatedAt;
+          delete my_game.createdAt;
+          delete my_game.updatedAt;
 
 
-        const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+          const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
-        this.setState({player1_x : parseInt(my_game.player1_x)});
-        this.setState({player2_x : parseInt(my_game.player2_x)});
-        this.setState({player3_x : parseInt(my_game.player3_x)});
-        this.setState({player4_x : parseInt(my_game.player4_x)});
-        this.setState({turn : parseInt(my_game.turn)});
+          this.setState({player1_x : parseInt(my_game.player1_x)});
+          this.setState({player2_x : parseInt(my_game.player2_x)});
+          this.setState({player3_x : parseInt(my_game.player3_x)});
+          this.setState({player4_x : parseInt(my_game.player4_x)});
+          this.setState({turn : parseInt(my_game.turn)});
+        }
+        else{
+          this.setState({player1_x : parseInt(my_game.player1_x)});
+          this.setState({player2_x : parseInt(my_game.player2_x)});
+          this.setState({player3_x : parseInt(my_game.player3_x)});
+          this.setState({player4_x : parseInt(my_game.player4_x)});
+          this.setState({turn : parseInt(my_game.turn)});
+        }
       }
       else{
         this.setState({isWinng : false});
@@ -776,20 +813,7 @@ class App extends Component {
       }
     }
 
-    this.setState({turn: 0});
-    const updateSession = {
-      "id": this.state.gameid,
-      "player1_id": this.state.player1_id,
-      "player1_x": this.state.player1_x,
-      "player2_id": this.state.player2_id,
-      "player2_x": this.state.player2_x,
-      "player3_id": this.state.player3_id,
-      "player3_x": this.state.player3_x,
-      "player4_id": this.state.player4_id,
-      "player4_x": this.state.player4_x,
-      "turn": this.state.turn,
-    }
-    await API.graphql(graphqlOperation(updateOnGameSession, {input: updateSession}));
+
     
     
   }
@@ -1085,48 +1109,394 @@ async resetSkills(){
 
   async spell_skill(skill_name, target_player){
 
-    const newSkillInput = {
+      const newSkillInput = {
+      
       "id": uuid(),
+      
       "gameid":this.state.gameid,
+      
       "skill_name":skill_name,
-      "skill_state": "casted",
+      
+      "skill_state": "applied",
+      
       "source_player":this.state.my_number,
+      
       "target_player":target_player
-    }
-    
-    const  sound_tanos = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/210943d9-3cf9-446e-987e-389bf8ca3131/tanos.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T144312Z&X-Amz-Expires=86400&X-Amz-Signature=dbd671ec5bc3459e506b366083077e8333878281e376cbb1e6d36af64a5ccb19&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22tanos.mp3%22"
-    const  sound_backdoor = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/32ff0ee0-28f8-4b76-8b1f-d37e063ce639/anywherer_door.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T144420Z&X-Amz-Expires=86400&X-Amz-Signature=a1a572a8542f5845281f9328e0f7fc103b1c9b50aeaf232266d329defbd4fb9b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22anywherer_door.mp3%22"
-    const sound_infinite = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/da40031f-2229-47b6-8d06-9e727683e281/mooyaho.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T152245Z&X-Amz-Expires=86400&X-Amz-Signature=95798930eb0fbb1235facbf882c5915aedb86375f951aff811bf8d6c48bcb7ac&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22mooyaho.mp3%22"
-    const sound_shoot = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2f3a9102-503e-4956-a5a3-a496e55068f8/no_shoot.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T144634Z&X-Amz-Expires=86400&X-Amz-Signature=52cc51b5e011384183b2de05b0232ddcef4229dae2a70e045cd7753ac6474ba6&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22no_shoot.mp3%22"
-    const sound_doom = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f156813c-bf7d-42e4-b6b4-8e9eba428e87/bomb_%28mp3cut.net%29_%281%29.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T212825Z&X-Amz-Expires=86400&X-Amz-Signature=b254de0abe6e3ec979f10580e3feab4ea19e9b9633bd2086c946d9f7c39fc5d1&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22bomb_%28mp3cut.net%29_%281%29.mp3%22"
-    const skill = skill_name;                   
+      
+      }
+      
+      await API.graphql(graphqlOperation(createOnGameSkill, {input:newSkillInput}))
 
-    if (skill === "tanos") {    
-        this.SoundPlay(sound_tanos, 100);
-    }
-    else if (skill === "backdoor") {  
-        this.SoundPlay(sound_backdoor, 40);
-    }
-    else if (skill === "infinite") {       
-        this.SoundPlay(sound_infinite, 0.8);
-    }
-    else if (skill === "shoot") {    
-        this.SoundPlay(sound_shoot, 0.8);
-    }
-    else if (skill === "doom") {
-        this.SoundPlay(sound_doom, 0.4);
-    } 
+      
+      const  sound_tanos = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/210943d9-3cf9-446e-987e-389bf8ca3131/tanos.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T144312Z&X-Amz-Expires=86400&X-Amz-Signature=dbd671ec5bc3459e506b366083077e8333878281e376cbb1e6d36af64a5ccb19&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22tanos.mp3%22"
+      
+      const  sound_backdoor = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/32ff0ee0-28f8-4b76-8b1f-d37e063ce639/anywherer_door.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T144420Z&X-Amz-Expires=86400&X-Amz-Signature=a1a572a8542f5845281f9328e0f7fc103b1c9b50aeaf232266d329defbd4fb9b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22anywherer_door.mp3%22"
+      
+      const sound_infinite = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/da40031f-2229-47b6-8d06-9e727683e281/mooyaho.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T152245Z&X-Amz-Expires=86400&X-Amz-Signature=95798930eb0fbb1235facbf882c5915aedb86375f951aff811bf8d6c48bcb7ac&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22mooyaho.mp3%22"
+      
+      const sound_shoot = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2f3a9102-503e-4956-a5a3-a496e55068f8/no_shoot.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T144634Z&X-Amz-Expires=86400&X-Amz-Signature=52cc51b5e011384183b2de05b0232ddcef4229dae2a70e045cd7753ac6474ba6&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22no_shoot.mp3%22"
+      
+      const sound_doom = "https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f156813c-bf7d-42e4-b6b4-8e9eba428e87/bomb_%28mp3cut.net%29_%281%29.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T212825Z&X-Amz-Expires=86400&X-Amz-Signature=b254de0abe6e3ec979f10580e3feab4ea19e9b9633bd2086c946d9f7c39fc5d1&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22bomb_%28mp3cut.net%29_%281%29.mp3%22"
+      
+      const skill = skill_name;
+      
+      if (skill === "tanos") {
+      
+      this.SoundPlay(sound_tanos, 100);
+      
+      }
+      
+      else if (skill === "backdoor") {
+      
+      this.SoundPlay(sound_backdoor, 40);
+      
+      }
+      
+      else if (skill === "infinite") {
+      
+      this.SoundPlay(sound_infinite, 0.8);
+      
+      }
+      
+      else if (skill === "shoot") {
+      
+      this.SoundPlay(sound_shoot, 0.8);
+      
+      }
+      
+      else if (skill === "doom") {
+      
+      this.SoundPlay(sound_doom, 0.4);
+      
+      }
 
-    
-    await API.graphql(graphqlOperation(createOnGameSkill, {input: newSkillInput}));
-    
-
-    this.setState({skill_name_1: "none"});
-    this.setState({skill_name_2: "none"});
-    this.setState({skill_name_3: "none"});
-    this.setState({skill_name_4: "none"});
-    this.reset_skill_resource_path();
-  }
+      
+      
+      if (skill_name == "tanos"){
+      
+      if (target_player == 1){
+      
+      this.setState({player1_x : this.state.player1_x/2});
+      
+      }
+      
+      else if (target_player == 2){
+      
+      this.setState({player2_x : this.state.player2_x/2});
+      
+      }
+      
+      else if (target_player == 3){
+      
+      this.setState({player3_x : this.state.player3_x/2});
+      
+      }
+      
+      else if (target_player == 4){
+      
+      this.setState({player4_x : this.state.player4_x/2});
+      
+      }
+      
+      }
+      
+      else if (skill_name === "backdoor"){
+      
+      if (this.state.my_number === 1){
+      
+      if (target_player === 2){
+      
+      const old_source_x = this.state.player2_x;
+      
+      const old_target_x = this.state.player1_x;
+      
+      this.setState({player2_x : old_target_x});
+      
+      this.setState({player1_x : old_source_x});
+      
+      }
+      
+      else if (target_player === 3){
+      
+      const old_source_x = this.state.player3_x;
+      
+      const old_target_x = this.state.player1_x;
+      
+      this.setState({player3_x : old_target_x});
+      
+      this.setState({player1_x : old_source_x});
+      
+      }
+      
+      else if (target_player === 4){
+      
+      const old_source_x = this.state.player4_x;
+      
+      const old_target_x = this.state.player1_x;
+      
+      this.setState({player4_x : old_target_x});
+      
+      this.setState({player1_x : old_source_x});
+      
+      }
+      
+      }
+      
+      else if (this.state.my_number === 2){
+      
+      if (target_player === 1){
+      
+      const old_source_x = this.state.player1_x;
+      
+      const old_target_x = this.state.player2_x;
+      
+      this.setState({player1_x : old_target_x});
+      
+      this.setState({player2_x : old_source_x});
+      
+      }
+      
+      else if (target_player === 3){
+      
+      const old_source_x = this.state.player3_x;
+      
+      const old_target_x = this.state.player2_x;
+      
+      this.setState({player3_x : old_target_x});
+      
+      this.setState({player2_x : old_source_x});
+      
+      }
+      
+      else if (target_player === 4){
+      
+      const old_source_x = this.state.player4_x;
+      
+      const old_target_x = this.state.player2_x;
+      
+      this.setState({player4_x : old_target_x});
+      
+      this.setState({player2_x : old_source_x});
+      
+      }
+      
+      }
+      
+      else if (this.state.my_number === 3){
+      
+      if (target_player === 1){
+      
+      const old_source_x = this.state.player1_x;
+      
+      const old_target_x = this.state.player3_x;
+      
+      this.setState({player1_x : old_target_x});
+      
+      this.setState({player3_x : old_source_x});
+      
+      }
+      
+      else if (target_player === 2){
+      
+      const old_source_x = this.state.player2_x;
+      
+      const old_target_x = this.state.player3_x;
+      
+      this.setState({player2_x : old_target_x});
+      
+      this.setState({player3_x : old_source_x});
+      
+      }
+      
+      else if (target_player === 4){
+      
+      const old_source_x = this.state.player4_x;
+      
+      const old_target_x = this.state.player3_x;
+      
+      this.setState({player4_x : old_target_x});
+      
+      this.setState({player3_x : old_source_x});
+      
+      }
+      
+      }
+      
+      else  if (this.state.my_number === 4){
+      
+      if (target_player === 1){
+      
+      const old_source_x = this.state.player1_x;
+      
+      const old_target_x = this.state.player4_x;
+      
+      this.setState({player1_x : old_target_x});
+      
+      this.setState({player4_x : old_source_x});
+      
+      }
+      
+      else if (target_player === 2){
+      
+      const old_source_x = this.state.player2_x;
+      
+      const old_target_x = this.state.player4_x;
+      
+      this.setState({player2_x : old_target_x});
+      
+      this.setState({player4_x : old_source_x});
+      
+      }
+      
+      else if (target_player === 3){
+      
+      const old_source_x = this.state.player3_x;
+      
+      const old_target_x = this.state.player4_x;
+      
+      this.setState({player3_x : old_target_x});
+      
+      this.setState({player4_x : old_source_x});
+      
+      }
+      
+      }
+      
+      }
+      
+      else if (skill_name === "infinite"){
+      
+      if (target_player == 1){
+      
+      let new_x = this.state.player1_x - 200;
+      
+      if (new_x < 0){new_x = 0;}
+      
+      this.setState({player1_x : new_x});
+      
+      }
+      
+      else if (target_player == 2){
+      
+      let new_x = this.state.player2_x - 200;
+      
+      if (new_x < 0){new_x = 0;}
+      
+      this.setState({player2_x : new_x});
+      
+      }
+      
+      else if (target_player == 3){
+      
+      let new_x = this.state.player3_x - 200;
+      
+      if (new_x < 0){new_x = 0;}
+      
+      this.setState({player3_x : new_x});
+      
+      }
+      
+      else if (target_player == 4){
+      
+      let new_x = this.state.player4_x - 200;
+      
+      if (new_x < 0){new_x = 0;}
+      
+      this.setState({player4_x : new_x});
+      
+      }
+      
+      }
+      
+      else if (skill_name === "shoot"){
+      
+      if (target_player === 1){
+      
+      this.setState({player1_x : 0});
+      
+      }
+      
+      else if (target_player === 2){
+      
+      this.setState({player2_x : 0});
+      
+      }
+      
+      else if (target_player === 3){
+      
+      this.setState({player3_x : 0});
+      
+      }
+      
+      else if (target_player === 4){
+      
+      this.setState({player4_x : 0});
+      
+      }
+      
+      }
+      
+      else if (skill_name === "doom"){
+      
+      this.setState({player1_x : 0});
+      
+      this.setState({player2_x : 0});
+      
+      this.setState({player3_x : 0});
+      
+      this.setState({player4_x : 0});
+      
+      }
+      
+      
+      
+      this.setState({turn: 0});
+      
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      
+      let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
+      
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+      
+      if (my_game!==undefined){
+      
+      my_game.player1_x = this.state.player1_x;
+      
+      my_game.player2_x = this.state.player2_x;
+      
+      my_game.player3_x = this.state.player3_x;
+      
+      my_game.player4_x = this.state.player4_x;
+      
+      my_game.turn = this.state.turn;
+      
+      delete my_game.createdAt;
+      
+      delete my_game.updatedAt;
+      
+      await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+      
+      }
+      
+      else{
+      
+      this.setState({isWinng : false});
+      
+      this.changeState("endgame");
+      
+      }
+      
+      this.setState({skill_name_1: "none"});
+      
+      this.setState({skill_name_2: "none"});
+      
+      this.setState({skill_name_3: "none"});
+      
+      this.setState({skill_name_4: "none"});
+      
+      this.reset_skill_resource_path();
+      
+      }
 
   async spell_on_player(target_player){
     if (this.state.skill_toggle_state === 1){
@@ -1428,8 +1798,7 @@ async resetSkills(){
     else if (this.state.client_state === "playing"){      
       const _enemy = () => (this.checkEnemy);
       
-      if (this.state.turn === 0){   // only move
-        //console.log("for only move must 00000!!!!!");
+
         return (
           <header>
             <ReactHowler
@@ -1515,22 +1884,22 @@ async resetSkills(){
                 
                 <div className="item" onClick={()=> this.moveChatacter()}>MOVE!!!!!!</div>            
           
-                <div className="item">
+                <div className="item" onClick={()=> this.changeTogggle(1)} >
                   <Tippy content={this.skillInfo(this.state.skill_name_1)}>
                     <span font-size><img src={this.state.skill_name_1_resource}/></span>
                   </Tippy>
                 </div>
-                <div className="item">
+                <div className="item" onClick={()=> this.changeTogggle(2)}>
                   <Tippy content={this.skillInfo(this.state.skill_name_2)}>
                     <span font-size><img src={this.state.skill_name_2_resource}/></span>
                   </Tippy>
                 </div>
-                <div className="item">
+                <div className="item" onClick={()=> this.changeTogggle(3)}>
                   <Tippy content={this.skillInfo(this.state.skill_name_3)}>
                     <span font-size><img src={this.state.skill_name_3_resource}/></span>
                   </Tippy>
                 </div>
-                <div className="item">
+                <div className="item" onClick={()=> this.changeTogggle(4)}>
                 <Tippy content={this.skillInfo(this.state.skill_name_4)}>
                     <span font-size><img src={this.state.skill_name_4_resource}/></span>
                   </Tippy>
@@ -1539,120 +1908,8 @@ async resetSkills(){
 
           </header>
         );
-      }
-      else{   // only skill
-        console.log(this.state.turn);
-        console.log("for only skill must 00000000!!!!!");
-        return (
-          <header>
-            <ReactHowler
-                    src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/81396e40-15ea-4d1d-ae6f-7ee392314b3f/Ehrling_-_Lounge.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210521%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210521T230814Z&X-Amz-Expires=86400&X-Amz-Signature=b511ed1b33f00d0196b414f04cb55ade1d6881c785022b5aefbf84c77a419669&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Ehrling_-_Lounge.wav%22'
-                    playing={true}
-                    loop={true}
-                    volume={0.3}
-                />
-            <div className="tracks">
-              <div className="track_info_line"></div>
-              <div className="track_info_line"></div>
-
-              <div className="track_info_line">
-                <span className="track_info_text">START</span>
-                <span className="track_info_text_has_margin">SKILL</span>
-                <span className="track_info_text_has_margin">SKILL</span>
-                <span className="track_info_text_has_margin">SKILL</span>
-                <span className="track_info_text_has_margin">WIN!!</span>
-
-              </div>
-
-              <div className="track_line"></div>
-              
-              <div className="track">
-                <span className="player-container" style={{paddingLeft: String(this.state.player1_x/10.0)+"%"}}>
-                  <img src="./resource/images/running.png" alt="" className="runner_img" 
-                    style={{backgroundColor: this.state.skill_1_background_color}}
-                    onClick={() => this.spell_on_player(1)}></img>
-                </span>
-              </div>
-              
-              <div className="track_line"></div>
-              <div className="track">
-                <span className="player-container" style={{paddingLeft: String(this.state.player2_x/10.0)+"%"}}>
-                  <img src="./resource/images/running.png" alt="" className="runner_img" 
-                    style={{backgroundColor: this.state.skill_2_background_color}}
-                    onClick={() => this.spell_on_player(2)}></img>
-                </span>
-              </div>
-              
-              <div className="track_line"></div>
-              <div className="track">
-                <span className="player-container" style={{paddingLeft: String(this.state.player3_x/10.0)+"%"}}>
-                  <img src="./resource/images/running.png" alt="" className="runner_img" 
-                    style={{backgroundColor: this.state.skill_3_background_color}}
-                    onClick={() => this.spell_on_player(3)}></img>
-                </span>
-              </div>
-
-              <div className="track_line"></div>
-              <div className="track">
-                <span className="player-container" style={{paddingLeft: String(this.state.player4_x/10.0)+"%"}}>
-                  <img src="./resource/images/running.png" alt="" className="runner_img" 
-                    style={{backgroundColor: this.state.skill_4_background_color}}
-                    onClick={() => this.spell_on_player(4)}></img>
-                </span>
-              </div>
-              <div className="track_line"></div>
-
-              <div className="track_info_line"></div>
-              <div className="track_info_line"></div>
-            </div>
-
-            <div className="container">
-                <div className="item">{rank[0]}</div>
-                <div className="item">{rank[1]}</div>
-                <div className="item">{rank[2]}</div>
-                <div className="item">{rank[3]}</div>
-
-                <div className="item">{this.state.player1_id}</div>
-                <div className="item">{this.state.player2_id}</div>
-                <div className="item">{this.state.player3_id}</div>
-                <div className="item">{this.state.player4_id}</div>
-                
-                <div className="item">{Enemy1}</div>
-                <div className="item">Player is on {this.state.player1_x}</div>
-                <div className="item">{Enemy2}</div>
-                <div className="item">Player is on {this.state.player2_x}</div>
-                <div className="item">{Enemy3}</div>
-                <div className="item">Player is on {this.state.player3_x}</div>
-                <div className="item">{Enemy4}</div>
-                <div className="item">Player is on {this.state.player4_x}</div>
-                
-                <div className="item">MOVE!!!!!!</div>            
-          
-                <div className="item" onClick={()=>this.changeTogggle(1)}>
-                  <Tippy content={this.skillInfo(this.state.skill_name_1)}>
-                    <span font-size><img src={this.state.skill_name_1_resource}/></span>
-                  </Tippy>
-                </div>
-                <div className="item" onClick={()=>this.changeTogggle(2)}>
-                  <Tippy content={this.skillInfo(this.state.skill_name_2)}>
-                    <span font-size><img src={this.state.skill_name_2_resource}/></span>
-                  </Tippy>
-                </div>
-                <div className="item" onClick={()=>this.changeTogggle(3)}>
-                  <Tippy content={this.skillInfo(this.state.skill_name_3)}>
-                    <span font-size><img src={this.state.skill_name_3_resource}/></span>
-                  </Tippy>
-                </div>
-                <div className="item" onClick={()=>this.changeTogggle(4)}>
-                <Tippy content={this.skillInfo(this.state.skill_name_4)}>
-                    <span font-size><img src={this.state.skill_name_4_resource}/></span>
-                  </Tippy>
-                </div>
-            </div>
-
-          </header>
-        );
-      }
+      
+      
 
 
     }
