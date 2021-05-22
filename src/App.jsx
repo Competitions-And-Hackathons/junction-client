@@ -8,8 +8,8 @@ import awsconfig from './aws-exports';
 import {AmplifySignOut, withAuthenticator} from '@aws-amplify/ui-react';
 
 // AWS APIs
-import {listMMRs, listSessionWaitings, listSessionMatchings, listOnGameSessions} from './graphql/queries'
-import {createMMR, createSessionWaiting, deleteSessionWaiting, createSessionMatching, deleteSessionMatching, createOnGameSession, updateOnGameSession, deleteOnGameSession} from './graphql/mutations'
+import {listMMRs, listSessionWaitings, listSessionMatchings, listOnGameSessions, listOnGameSkills} from './graphql/queries'
+import {createMMR, createSessionWaiting, deleteSessionWaiting, createSessionMatching, deleteSessionMatching, createOnGameSession, updateOnGameSession, deleteOnGameSession, createOnGameSkill, updateOnGameSkill} from './graphql/mutations'
 
 //uuid
 import {v4 as uuid} from 'uuid'
@@ -44,10 +44,15 @@ class App extends Component {
       skill_name_3_resource: "resource/images/none.png",
       skill_name_4_resource: "resource/images/none.png",
 
+      skill_1_background_color: "#11ffee00",
+      skill_2_background_color: "#11ffee00",
+      skill_3_background_color: "#11ffee00",
+      skill_4_background_color: "#11ffee00",
+
       got_skill_1 : false,
       got_skill_2 : false,
       got_skill_3 : false,
-      got_skill_4 : false
+      got_skill_4 : false,
     }
   }
   sleep(delay){
@@ -188,9 +193,6 @@ class App extends Component {
       const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
       let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
 
-      console.log(OnGameSessionsListItems);
-      console.log(this.state.gameid);
-
       const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
       this.setState({player1_id : my_game.player1_id});
@@ -235,6 +237,7 @@ class App extends Component {
   }
 
   async loadGameData(){
+    //movement sync 
     const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
     let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
 
@@ -244,6 +247,69 @@ class App extends Component {
     this.setState({player2_x : parseInt(my_game.player2_x)});
     this.setState({player3_x : parseInt(my_game.player3_x)});
     this.setState({player4_x : parseInt(my_game.player4_x)});
+
+
+    //skill sync 
+    const OnGameSkillsList = await API.graphql(graphqlOperation(listOnGameSkills))
+    let OnGameSkillsListItems =  OnGameSkillsList.data.listOnGameSkills.items;
+
+    let skills_to_apply = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+      OnGameSkillsListItem.gameid === this.state.gameid && 
+      OnGameSkillsListItem.skill_state === "casted" && 
+      OnGameSkillsListItem.target_player == this.state.my_number);
+
+      if (skills_to_apply !== undefined){
+        for (let skill_index = 0; skill_index < skills_to_apply.length; skills_to_apply++){
+          let skill_to_apply = skills_to_apply[skill_index];
+          const apply_skill_name = skill_to_apply.skill_name;
+
+          if (apply_skill_name === "tanos"){
+            if (this.state.my_number == 1){
+              this.setState({player1_x : this.state.player1_x/2});
+            }
+
+            else if (this.state.my_number == 2){
+              this.setState({player2_x : this.state.player2_x/2});
+            }
+
+            else if (this.state.my_number == 3){
+              this.setState({player3_x : this.state.player3_x/2});
+            }
+
+            else if (this.state.my_number == 4){
+              this.setState({player4_x : this.state.player4_x/2});
+            }
+          }
+
+          else if (apply_skill_name === "backdoor"){
+            if (this.state.my_number == 1){
+
+            }
+
+            else if (this.state.my_number == 2){
+
+            }
+
+            else if (this.state.my_number == 3){
+
+            }
+
+            else if (this.state.my_number == 4){
+
+            }
+          }
+
+
+
+          skill_to_apply.skill_state = "applied"
+
+          delete skill_to_apply.createdAt;
+          delete skill_to_apply.updatedAt;
+
+          await API.graphql(graphqlOperation(updateOnGameSkill, {input:skill_to_apply}))
+        }
+      }
+
   }
 
   async moveChatacter(){
@@ -257,7 +323,7 @@ class App extends Component {
       const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
 
-      my_game.player1_x = my_game.player1_x + this.state.gameSetting[0].speed;
+      my_game.player1_x = this.state.player1_x + this.state.gameSetting[0].speed;
 
 
       delete my_game.createdAt;
@@ -277,7 +343,7 @@ class App extends Component {
       const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
 
-      my_game.player2_x = my_game.player2_x + this.state.gameSetting[0].speed;
+      my_game.player2_x = this.state.player2_x + this.state.gameSetting[0].speed;
 
 
       delete my_game.createdAt;
@@ -297,7 +363,7 @@ class App extends Component {
       const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
 
-      my_game.player3_x = my_game.player3_x + this.state.gameSetting[0].speed;
+      my_game.player3_x = this.state.player3_x + this.state.gameSetting[0].speed;
 
 
       delete my_game.createdAt;
@@ -318,7 +384,7 @@ class App extends Component {
       const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
 
-      my_game.player4_x = my_game.player4_x + this.state.gameSetting[0].speed;
+      my_game.player4_x = this.state.player4_x + this.state.gameSetting[0].speed;
 
 
       delete my_game.createdAt;
@@ -335,8 +401,163 @@ class App extends Component {
 
   }
 
-  changeTogggle(skill_toggle_index){
-    this.setState({skill_toggle_state: skill_toggle_index});
+  async changeTogggle(skill_toggle_index){
+    if (skill_toggle_index == 1){
+      if (this.state.skill_name_1 == "infinite"){
+        if (this.state.my_number != 1){
+          await this.spell_skill("infinite", 1);
+        }
+        if (this.state.my_number != 2){
+          await this.spell_skill("infinite", 2);
+        }
+        if (this.state.my_number != 3){
+          await this.spell_skill("infinite", 3);
+        }
+        if (this.state.my_number != 4){
+          await this.spell_skill("infinite", 4);
+        }
+      }
+      else if (this.state.skill_name_1 == "doom"){
+        if (this.state.my_number != 1){
+          await this.spell_skill("doom", 1);
+        }
+        if (this.state.my_number != 2){
+          await this.spell_skill("doom", 2);
+        }
+        if (this.state.my_number != 3){
+          await this.spell_skill("doom", 3);
+        }
+        if (this.state.my_number != 4){
+          await this.spell_skill("doom", 4);
+        }
+      }
+      else{
+        this.setState({skill_toggle_state: skill_toggle_index});
+
+        this.setState({skill_1_background_color: "#DD9C9C"});
+        this.setState({skill_2_background_color: "#DD9C9C"});
+        this.setState({skill_3_background_color: "#DD9C9C"});
+        this.setState({skill_4_background_color: "#DD9C9C"});
+      }
+    }
+
+    else if (skill_toggle_index == 2){
+      if (this.state.skill_name_2 == "infinite"){
+        if (this.state.my_number != 1){
+          await this.spell_skill("infinite", 1);
+        }
+        if (this.state.my_number != 2){
+          await this.spell_skill("infinite", 2);
+        }
+        if (this.state.my_number != 3){
+          await this.spell_skill("infinite", 3);
+        }
+        if (this.state.my_number != 4){
+          await this.spell_skill("infinite", 4);
+        }
+      }
+      else if (this.state.skill_name_2 == "doom"){
+        if (this.state.my_number != 1){
+          await this.spell_skill("doom", 1);
+        }
+        if (this.state.my_number != 2){
+          await this.spell_skill("doom", 2);
+        }
+        if (this.state.my_number != 3){
+          await this.spell_skill("doom", 3);
+        }
+        if (this.state.my_number != 4){
+          await this.spell_skill("doom", 4);
+        }
+      }
+      else{
+        this.setState({skill_toggle_state: skill_toggle_index});
+
+        this.setState({skill_1_background_color: "#DD9C9C"});
+        this.setState({skill_2_background_color: "#DD9C9C"});
+        this.setState({skill_3_background_color: "#DD9C9C"});
+        this.setState({skill_4_background_color: "#DD9C9C"});
+      }
+    }
+
+    else if (skill_toggle_index == 3){
+      if (this.state.skill_name_3 == "infinite"){
+        if (this.state.my_number != 1){
+          await this.spell_skill("infinite", 1);
+        }
+        if (this.state.my_number != 2){
+          await this.spell_skill("infinite", 2);
+        }
+        if (this.state.my_number != 3){
+          await this.spell_skill("infinite", 3);
+        }
+        if (this.state.my_number != 4){
+          await this.spell_skill("infinite", 4);
+        }
+      }
+      else if (this.state.skill_name_3 == "doom"){
+        if (this.state.my_number != 1){
+          await this.spell_skill("doom", 1);
+        }
+        if (this.state.my_number != 2){
+          await this.spell_skill("doom", 2);
+        }
+        if (this.state.my_number != 3){
+          await this.spell_skill("doom", 3);
+        }
+        if (this.state.my_number != 4){
+          await this.spell_skill("doom", 4);
+        }
+      }
+      else{
+        this.setState({skill_toggle_state: skill_toggle_index});
+
+        this.setState({skill_1_background_color: "#DD9C9C"});
+        this.setState({skill_2_background_color: "#DD9C9C"});
+        this.setState({skill_3_background_color: "#DD9C9C"});
+        this.setState({skill_4_background_color: "#DD9C9C"});
+      }
+    }
+
+    else if (skill_toggle_index == 4){
+      if (this.state.skill_name_4 == "infinite"){
+        if (this.state.my_number != 1){
+          await this.spell_skill(skill_toggle_index, 1);
+        }
+        if (this.state.my_number != 2){
+          await this.spell_skill(skill_toggle_index, 2);
+        }
+        if (this.state.my_number != 3){
+          await this.spell_skill(skill_toggle_index, 3);
+        }
+        if (this.state.my_number != 4){
+          await this.spell_skill(skill_toggle_index, 4);
+        }
+      }
+      else if (this.state.skill_name_4 == "doom"){
+        if (this.state.my_number != 1){
+          await this.spell_skill(skill_toggle_index, 1);
+        }
+        if (this.state.my_number != 2){
+          await this.spell_skill(skill_toggle_index, 2);
+        }
+        if (this.state.my_number != 3){
+          await this.spell_skill(skill_toggle_index, 3);
+        }
+        if (this.state.my_number != 4){
+          await this.spell_skill(skill_toggle_index, 4);
+        }
+      }
+      else{
+        this.setState({skill_toggle_state: skill_toggle_index});
+
+        this.setState({skill_1_background_color: "#DD9C9C"});
+        this.setState({skill_2_background_color: "#DD9C9C"});
+        this.setState({skill_3_background_color: "#DD9C9C"});
+        this.setState({skill_4_background_color: "#DD9C9C"});
+      }
+    }
+
   }
 
   checkGetSkill(){
@@ -345,15 +566,15 @@ class App extends Component {
         this.resetSkills();
         this.state.got_skill_1 = true;
       }
-      else if ((this.state.player1_x >= 160) && (this.state.got_skill_2 == false)){
+      else if ((this.state.player1_x >= 222) && (this.state.got_skill_2 == false)){
         this.resetSkills();
         this.state.got_skill_2 = true;
       }
-      else if ((this.state.player1_x >= 335) && (this.state.got_skill_3 == false)){
+      else if ((this.state.player1_x >= 450) && (this.state.got_skill_3 == false)){
         this.resetSkills();
         this.state.got_skill_3 = true;
       }
-      else if ((this.state.player1_x >= 505) && (this.state.got_skill_4 == false)){
+      else if ((this.state.player1_x >= 670) && (this.state.got_skill_4 == false)){
         this.resetSkills();
         this.state.got_skill_4 = true;
       }
@@ -364,15 +585,15 @@ class App extends Component {
         this.resetSkills();
         this.state.got_skill_1 = true;
       }
-      else if ((this.state.player2_x >= 160) && (this.state.got_skill_2 == false)){
+      else if ((this.state.player2_x >= 222) && (this.state.got_skill_2 == false)){
         this.resetSkills();
         this.state.got_skill_2 = true;
       }
-      else if ((this.state.player2_x >= 335) && (this.state.got_skill_3 == false)){
+      else if ((this.state.player2_x >= 450) && (this.state.got_skill_3 == false)){
         this.resetSkills();
         this.state.got_skill_3 = true;
       }
-      else if ((this.state.player2_x >= 505) && (this.state.got_skill_4 == false)){
+      else if ((this.state.player2_x >= 670) && (this.state.got_skill_4 == false)){
         this.resetSkills();
         this.state.got_skill_4 = true;
       }
@@ -383,15 +604,15 @@ class App extends Component {
         this.resetSkills();
         this.state.got_skill_1 = true;
       }
-      else if ((this.state.player3_x >= 160) && (this.state.got_skill_2 == false)){
+      else if ((this.state.player3_x >= 222) && (this.state.got_skill_2 == false)){
         this.resetSkills();
         this.state.got_skill_2 = true;
       }
-      else if ((this.state.player3_x >= 335) && (this.state.got_skill_3 == false)){
+      else if ((this.state.player3_x >= 450) && (this.state.got_skill_3 == false)){
         this.resetSkills();
         this.state.got_skill_3 = true;
       }
-      else if ((this.state.player3_x >= 505) && (this.state.got_skill_4 == false)){
+      else if ((this.state.player3_x >= 670) && (this.state.got_skill_4 == false)){
         this.resetSkills();
         this.state.got_skill_4 = true;
       }
@@ -402,15 +623,15 @@ class App extends Component {
         this.resetSkills();
         this.state.got_skill_1 = true;
       }
-      else if ((this.state.player4_x >= 160) && (this.state.got_skill_2 == false)){
+      else if ((this.state.player4_x >= 222) && (this.state.got_skill_2 == false)){
         this.resetSkills();
         this.state.got_skill_2 = true;
       }
-      else if ((this.state.player4_x >= 335) && (this.state.got_skill_3 == false)){
+      else if ((this.state.player4_x >= 450) && (this.state.got_skill_3 == false)){
         this.resetSkills();
         this.state.got_skill_3 = true;
       }
-      else if ((this.state.player4_x >= 505) && (this.state.got_skill_4 == false)){
+      else if ((this.state.player4_x >= 670) && (this.state.got_skill_4 == false)){
         this.resetSkills();
         this.state.got_skill_4 = true;
       }
@@ -579,14 +800,62 @@ class App extends Component {
       }
 
       this.reset_skill_resource_path();
-    }
+  }
   
-    reset_skill_resource_path(){
+  reset_skill_resource_path(){
       this.setState({skill_name_1_resource: "resource/images/" + this.state.skill_name_1 + ".png"});
       this.setState({skill_name_2_resource: "resource/images/" + this.state.skill_name_2 + ".png"});
       this.setState({skill_name_3_resource: "resource/images/" + this.state.skill_name_3 + ".png"});
       this.setState({skill_name_4_resource: "resource/images/" + this.state.skill_name_4 + ".png"});
+
+      this.setState({skill_1_background_color: "#11ffee00"});
+      this.setState({skill_2_background_color: "#11ffee00"});
+      this.setState({skill_3_background_color: "#11ffee00"});
+      this.setState({skill_4_background_color: "#11ffee00"});
+  }
+
+  async spell_skill(skill_name, target_player){
+
+    const newSkillInput = {
+      "id": uuid(),
+      "gameid":this.state.gameid,
+      "skill_name":skill_name,
+      "skill_state": "casted",
+      "source_player":this.state.my_number,
+      "target_player":target_player
     }
+    
+    await API.graphql(graphqlOperation(createOnGameSkill, {input: newSkillInput}));
+    
+
+    this.setState({skill_name_1: "none"});
+    this.setState({skill_name_2: "none"});
+    this.setState({skill_name_3: "none"});
+    this.setState({skill_name_4: "none"});
+    this.reset_skill_resource_path();
+  }
+
+  async spell_on_player(target_player){
+    if (this.state.skill_toggle_state == 1){
+      await this.spell_skill(this.state.skill_name_1, target_player);
+    } 
+
+    else if (this.state.skill_toggle_state == 2){
+      await this.spell_skill(this.state.skill_name_2, target_player);
+    } 
+
+    else if (this.state.skill_toggle_state == 3){
+      await this.spell_skill(this.state.skill_name_3, target_player);
+    } 
+
+    else if (this.state.skill_toggle_state == 4){
+      await this.spell_skill(this.state.skill_name_4, target_player);
+    } 
+
+    
+  }
+
+
   
 
   render(){
@@ -656,29 +925,37 @@ class App extends Component {
             <div className="track_line"></div>
             
             <div className="track">
-              <span className="player-container" style={{paddingLeft: this.state.player1_x}}>
-                <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
+              <span className="player-container" style={{paddingLeft: String(this.state.player1_x/10.0)+"%"}}>
+                <img src="./resource/images/running.png" alt="" className="runner_img" 
+                  style={{backgroundColor: this.state.skill_1_background_color}}
+                  onClick={() => this.spell_on_player(1)}></img>
               </span>
             </div>
             
             <div className="track_line"></div>
             <div className="track">
-              <span className="player-container" style={{paddingLeft: this.state.player2_x}}>
-                <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
+              <span className="player-container" style={{paddingLeft: String(this.state.player2_x/10.0)+"%"}}>
+                <img src="./resource/images/running.png" alt="" className="runner_img" 
+                  style={{backgroundColor: this.state.skill_2_background_color}}
+                  onClick={() => this.spell_on_player(2)}></img>
               </span>
             </div>
             
             <div className="track_line"></div>
             <div className="track">
-              <span className="player-container" style={{paddingLeft: this.state.player3_x}}>
-                <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
+              <span className="player-container" style={{paddingLeft: String(this.state.player3_x/10.0)+"%"}}>
+                <img src="./resource/images/running.png" alt="" className="runner_img" 
+                  style={{backgroundColor: this.state.skill_3_background_color}}
+                  onClick={() => this.spell_on_player(3)}></img>
               </span>
             </div>
 
             <div className="track_line"></div>
             <div className="track">
-              <span className="player-container" style={{paddingLeft: this.state.player4_x}}>
-                <img src="./resource/images/running.png" alt="" className="runner_img" ></img>
+              <span className="player-container" style={{paddingLeft: String(this.state.player4_x/10.0)+"%"}}>
+                <img src="./resource/images/running.png" alt="" className="runner_img" 
+                  style={{backgroundColor: this.state.skill_4_background_color}}
+                  onClick={() => this.spell_on_player(4)}></img>
               </span>
             </div>
             <div className="track_line"></div>
