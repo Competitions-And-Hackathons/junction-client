@@ -22,7 +22,7 @@ import { TextField } from '@material-ui/core';
 
 //music
 import ReactHowler from 'react-howler'
-
+import { Howl, Howler } from 'howler';
 
 Amplify.configure(awsconfig);
 
