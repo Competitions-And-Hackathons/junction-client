@@ -9,7 +9,7 @@ import {AmplifySignOut, withAuthenticator} from '@aws-amplify/ui-react';
 
 // AWS APIs
 import {listMMRs, listSessionWaitings, listSessionMatchings, listOnGameSessions, listOnGameSkills} from './graphql/queries'
-import {createMMR, createSessionWaiting, deleteSessionWaiting, createSessionMatching, deleteSessionMatching, createOnGameSession, updateOnGameSession, deleteOnGameSession, createOnGameSkill, updateOnGameSkill, createSkillSummary} from './graphql/mutations'
+import {createMMR, createSessionWaiting, deleteSessionWaiting, createSessionMatching, deleteSessionMatching, createOnGameSession, updateOnGameSession, deleteOnGameSession, createOnGameSkill, updateOnGameSkill, createSkillSummary, deleteOnGameSkill} from './graphql/mutations'
 
 //uuid
 import {v4 as uuid} from 'uuid'
@@ -1180,8 +1180,25 @@ class App extends Component {
         await API.graphql(graphqlOperation(createSkillSummary, {input: newSkillSummaryInput}));
       }
 
-      
-  }
+      let deleteSkillsListItems = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+        OnGameSkillsListItem.gameid === this.state.gameid);
+
+      for(let skill_index=0; skill_index < deleteSkillsListItems.length; skill_index++){
+        const deleteOnGameSkillInput = {
+          "id": deleteSkillsListItems[skill_index].id,
+        }
+        await API.graphql(graphqlOperation(deleteOnGameSkill, {input: deleteOnGameSkillInput}));
+      }
+
+      const deleteOnGameSessionInput = {
+        "id": this.state.gameid
+      }
+      await API.graphql(graphqlOperation(deleteOnGameSession, {input: deleteOnGameSessionInput}));
+  
+      this.setState({isWinng : true});
+      this.changeState("endgame");
+
+    }
   
 
   render(){
@@ -1227,7 +1244,7 @@ class App extends Component {
         <div className="App">
           <header className="App-header">
   
-          <div className="text_field"> username : 
+          <div className="text_field"> NikeName : 
             <TextField value={this.state.username} onChange={e => this.setState({username : e.target.value})}/> 
           </div>
 
@@ -1347,12 +1364,24 @@ class App extends Component {
       );
     }
     else if (this.state.client_state === "endgame"){
-      return (
-        <div className="App">
-          <h1>Game Ended</h1>
-          {this.state.isWinng}
-        </div>
-      );
+      if (this.state.isWinng){
+        return (
+          <div className="App">
+            <h1>Game Ended</h1>
+            <h2>You Win!</h2>
+          </div>
+        );
+      }
+
+      else{
+        return (
+          <div className="App">
+            <h1>Game Ended</h1>
+            <h2>You Lose!</h2>
+          </div>
+        );
+      }
+      
     }
   }
 }
