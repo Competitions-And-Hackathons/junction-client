@@ -16,6 +16,7 @@ import {v4 as uuid} from 'uuid'
 
 //UIs
 import { TextField } from '@material-ui/core';
+import Enemy from './Enemy';
 
 Amplify.configure(awsconfig);
 
@@ -24,12 +25,7 @@ class App extends Component {
     super(props);
     this.state  = {
       client_state : "playing",    // "playing" for test, 원래는 "init"
-      player: [
-        {num: "1", id: "KJM", x: "1", enemy: "Enemy"},
-        {num: "2", id: "SDS", x: "2", enemy: "Enemy"},
-        {num: "3", id: "YJH", x: "3", enemy: "YOU"},
-        {num: "4", id: "LYJ", x: "4", enemy: "Enemy"},
-      ],
+      
       client_state : "init",
       skill_toggle_state : 0,
       is_used_skill : false,
@@ -225,15 +221,6 @@ class App extends Component {
 
       this.changeState("playing");
     }
-  }
-
-  async getPlayer(){
-    
-    const playerData = await API.graphql(graphqlOperation(listOnGameSessions));
-    let playerList = playerData.data.listOnGameSessions.items;
-    console.log('player list', playerList);
-   
-    // 정보 읽어어와서 setState로 playerList채우기!!!
   }
 
   async loadGameData(){
@@ -856,9 +843,27 @@ class App extends Component {
   }
 
 
-  
 
   render(){
+    var Enemy1 = "Enemy";
+    var Enemy2 = "Enemy";
+    var Enemy3 = "Enemy";
+    var Enemy4 = "Enemy";
+
+    if (this.state.player1_id === this.state.username){
+      Enemy1 = "You";
+    }
+    else if (this.state.player2_id === this.state.username){
+      Enemy2 = "You";
+    }
+    else if (this.state.player3_id === this.state.username){
+      Enemy3 = "You";
+    }
+    else if (this.state.player4_id === this.state.username){
+      Enemy4 = "You";
+    }
+
+
     if (this.state.client_state === "init"){
       return (
         <div className="App">
@@ -904,9 +909,11 @@ class App extends Component {
         </div>
       );
     }
-    else if (this.state.client_state === "playing"){
-      return (
+    else if (this.state.client_state === "playing"){      
+      const _enemy = () => (this.checkEnemy);
+      //this.checkEnemy;
 
+      return (
         <header>
           
           <div className="tracks">
@@ -964,32 +971,32 @@ class App extends Component {
             <div className="track_info_line"></div>
           </div>
 
-          <div class="container">
-              <div class="item">{this.state.player[0].num}.</div>
-              <div class="item">{this.state.player[1].num}.</div>
-              <div class="item">{this.state.player[2].num}.</div>
-              <div class="item">{this.state.player[3].num}.</div>
+          <div className="container">
+              <div className="item">1.</div>
+              <div className="item">2.</div>
+              <div className="item">3.</div>
+              <div className="item">4.</div>
 
-              <div class="item">{this.state.player[0].id}</div>
-              <div class="item">{this.state.player[1].id}</div>
-              <div class="item">{this.state.player[2].id}</div>
-              <div class="item">{this.state.player[3].id}</div>
-
-              <div class="item">{this.state.player[0].enemy}</div>
-              <div class="item">Player is on {this.state.player[0].x}</div>
-              <div class="item">{this.state.player[1].enemy}</div>
-              <div class="item">Player is on {this.state.player[1].x}</div>
-              <div class="item">{this.state.player[2].enemy}</div>
-              <div class="item">Player is on {this.state.player[2].x}</div>
-              <div class="item">{this.state.player[3].enemy}</div>
-              <div class="item">Player is on {this.state.player[3].x}</div>
-
-              <div class="item" onClick={()=> this.moveChatacter()}>MOVE!!!!!!</div>            
+              <div className="item">{this.state.player1_id}</div>
+              <div className="item">{this.state.player2_id}</div>
+              <div className="item">{this.state.player3_id}</div>
+              <div className="item">{this.state.player4_id}</div>
+              
+              <div className="item">{Enemy1}</div>
+              <div className="item">Player is on {this.state.player1_x}</div>
+              <div className="item">{Enemy2}</div>
+              <div className="item">Player is on {this.state.player2_x}</div>
+              <div className="item">{Enemy3}</div>
+              <div className="item">Player is on {this.state.player3_x}</div>
+              <div className="item">{Enemy4}</div>
+              <div className="item">Player is on {this.state.player4_x}</div>
+              
+              <div className="item" onClick={()=> this.moveChatacter()}>MOVE!!!!!!</div>            
         
-              <div class="item" onClick={()=>this.changeTogggle(1)}><span font-size><img src={this.state.skill_name_1_resource}/></span></div>
-              <div class="item" onClick={()=>this.changeTogggle(2)}><span font-size><img src={this.state.skill_name_2_resource}/></span></div>
-              <div class="item" onClick={()=>this.changeTogggle(3)}><span font-size><img src={this.state.skill_name_3_resource}/></span></div>
-              <div class="item" onClick={()=>this.changeTogggle(4)}><span font-size><img src={this.state.skill_name_4_resource}/></span></div>
+              <div className="item" onClick={()=>this.changeTogggle(1)}><span font-size><img src={this.state.skill_name_1_resource}/></span></div>
+              <div className="item" onClick={()=>this.changeTogggle(2)}><span font-size><img src={this.state.skill_name_2_resource}/></span></div>
+              <div className="item" onClick={()=>this.changeTogggle(3)}><span font-size><img src={this.state.skill_name_3_resource}/></span></div>
+              <div className="item" onClick={()=>this.changeTogggle(4)}><span font-size><img src={this.state.skill_name_4_resource}/></span></div>
           </div>
 
         </header>

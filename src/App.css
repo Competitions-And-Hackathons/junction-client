@@ -135,21 +135,20 @@ span img{
   margin-top : 0.5vw;
 }
 
+
+
 .container{
-  
   margin-left: 20%;
   margin-right: 20%;
   display: grid;
-  grid-template-columns: 2vw 10vw 10vw 15vw 6vw 6vw 6vw 6vw;
+  grid-template-columns: 1vw 15vw 10vw 15vw 6vw 6vw 6vw 6vw;
   grid-template-rows: repeat(8, 2.2vw);
-
 }
 
 .item:nth-child(1) {
   align-self: center;
   font-size: 2vw;
   font-weight: bold;
-  text-align: left;
 
 	grid-column: 1 / 2;
 	grid-row: 1 / 3;
@@ -158,8 +157,7 @@ span img{
   align-self: center;
   font-size: 2vw;
   font-weight: bold;
-  text-align: left;
-
+ 
 	grid-column: 1 / 2;
 	grid-row: 3 / 5;
 }
@@ -167,8 +165,7 @@ span img{
   align-self: center;
   font-size: 2vw;
   font-weight: bold;
-  text-align: left;
-
+ 
 	grid-column: 1 / 2;
 	grid-row: 5 / 7;
 }
@@ -176,49 +173,60 @@ span img{
   align-self: center;
   font-size: 2vw;
   font-weight: bold;
-  text-align: left;
   
 	grid-column: 1 / 2;
 	grid-row: 7 / 9;
 }
 
 .item:nth-child(5) {
-  align-self: center;
-  font-size: 2vw;
-  font-weight: bold;
-
   grid-column: 2 / 3;
 	grid-row: 1 / 3;
 
+  align-self: center;
+  text-align: right;
+  font-size: 3vw;
+  font-weight: bold;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 .item:nth-child(6) {
-  align-self: center;
-  font-size: 2vw;
-  font-weight: bold;
-
-	grid-column: 2 / 3;
+ 	grid-column: 2 / 3;
 	grid-row: 3 / 5;
+
+  align-self: center;
+  text-align: right;
+  font-size: 3vw;
+  font-weight: bold;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 .item:nth-child(7) {
-  align-self: center;
-  font-size: 2vw;
-  font-weight: bold;
-  
 	grid-column: 2 / 3;
 	grid-row: 5 / 7;
+
+  align-self: center;
+  text-align: right;
+  font-size: 3vw;
+  font-weight: bold;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 .item:nth-child(8) {
-  align-self: center;
-  font-size: 2vw;
-  font-weight: bold;
-  
   grid-column: 2 / 3;
 	grid-row: 7 / 9;
+  
+  align-self: center;
+  text-align: right;
+  font-size: 3vw;
+  font-weight: bold;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .item:nth-child(9) {
   align-self: center;
   font-size: 1vw;
+  margin-left: 5%;
   
 	grid-column: 3 / 4;
   grid-row: 1 / 2;
@@ -226,6 +234,7 @@ span img{
 .item:nth-child(10) {
   align-self: center;
   font-size: 1vw;
+  margin-left: 5%;
 
 	grid-column: 3 / 4;
   grid-row: 2 / 3;
@@ -233,6 +242,7 @@ span img{
 .item:nth-child(11) {
   align-self: center;
   font-size: 1vw;
+  margin-left: 5%;
   
 	grid-column: 3 / 4;
   grid-row: 3 / 4;  
@@ -240,18 +250,23 @@ span img{
 .item:nth-child(12) {
   align-self: center;
   font-size: 1vw;
+  margin-left: 5%;
   
 	grid-column: 3 / 4;
   grid-row: 4 / 5;
 }
 .item:nth-child(13) {
   align-self: center;
+  font-size: 1vw;
+  margin-left: 5%;
+
 	grid-column: 3 / 4;
   grid-row: 5 / 6;
 }
 .item:nth-child(14) {
   align-self: center;
   font-size: 1vw;
+  margin-left: 5%;
   
 	grid-column: 3 / 4;
   grid-row: 6 / 7;
@@ -259,6 +274,7 @@ span img{
 .item:nth-child(15) {
   align-self: center;
   font-size: 1vw;
+  margin-left: 5%;
   
 	grid-column: 3 / 4;
   grid-row: 7 / 8;
@@ -266,7 +282,8 @@ span img{
 .item:nth-child(16) {
   align-self: center;
   font-size: 1vw;
-  
+  margin-left: 5%;
+
 	grid-column: 3 / 4;
   grid-row: 8 / 9;
 }
