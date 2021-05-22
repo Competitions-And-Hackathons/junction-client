@@ -1307,8 +1307,10 @@ class App extends Component {
         <div className="App">
           <header className="App-header">
   
-          <div className="text_field"> NickName : 
+          <div className="text_field"> NickName :
+            <span className="input_field">
             <TextField value={this.state.username} onChange={e => this.setState({username : e.target.value})}/> 
+            </span>
           </div>
 
           <div className="custom_button" onClick={()=> this.buildSession()}> Go! </div> 
