@@ -1293,7 +1293,11 @@ class App extends Component {
             <div className="custom_button" onClick={()=> this.loginGame()}> Start Game </div> 
   
             <h1>Go to Dash Board</h1>
-            <div className="custom_button"> Dash Board </div> 
+            <div className="custom_button">
+              <a href="https://ljz8006s1e.execute-api.ap-northeast-2.amazonaws.com/test/dashboard-embed-sample">
+                Dash Board 
+              </a>
+            </div> 
   
     
             <h1>Log Out</h1>
