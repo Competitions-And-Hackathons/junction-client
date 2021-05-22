@@ -775,7 +775,23 @@ class App extends Component {
         this.setState({skill_4_background_color: "#DD9C9C"});
       }
     }
+
     this.setState({turn: 0});
+    const updateSession = {
+      "id": this.state.gameid,
+      "player1_id": this.state.player1_id,
+      "player1_x": this.state.player1_x,
+      "player2_id": this.state.player2_id,
+      "player2_x": this.state.player2_x,
+      "player3_id": this.state.player3_id,
+      "player3_x": this.state.player3_x,
+      "player4_id": this.state.player4_id,
+      "player4_x": this.state.player4_x,
+      "turn": this.state.turn,
+    }
+    await API.graphql(graphqlOperation(updateOnGameSession, {input: updateSession}));
+    
+    
   }
 
   async checkGetSkill(){
