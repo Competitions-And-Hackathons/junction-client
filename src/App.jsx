@@ -728,16 +728,16 @@ class App extends Component {
     else if (skill_toggle_index == 4){
       if (this.state.skill_name_4 == "infinite"){
         if (this.state.my_number != 1){
-          await this.spell_skill(skill_toggle_index, 1);
+          await this.spell_skill("infinite", 1);
         }
         if (this.state.my_number != 2){
-          await this.spell_skill(skill_toggle_index, 2);
+          await this.spell_skill("infinite", 2);
         }
         if (this.state.my_number != 3){
-          await this.spell_skill(skill_toggle_index, 3);
+          await this.spell_skill("infinite", 3);
         }
         if (this.state.my_number != 4){
-          await this.spell_skill(skill_toggle_index, 4);
+          await this.spell_skill("infinite", 4);
         }
       }
       else if (this.state.skill_name_4 == "doom"){
