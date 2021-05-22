@@ -1248,7 +1248,7 @@ class App extends Component {
         <div className="App">
           <header className="App-header">
   
-          <div className="text_field"> NikeName : 
+          <div className="text_field"> NickName : 
             <TextField value={this.state.username} onChange={e => this.setState({username : e.target.value})}/> 
           </div>
 
@@ -1375,18 +1375,20 @@ class App extends Component {
     else if (this.state.client_state === "endgame"){
       if (this.state.isWinng){
         return (
-          <div className="App">
+          <div className="IsWin">
             <h1>Game Ended</h1>
             <h2>You Win!</h2>
+            <img src="./resource/images/flower.gif"></img>
           </div>
         );
       }
 
       else{
         return (
-          <div className="App">
+          <div className="IsWin">
             <h1>Game Ended</h1>
             <h2>You Lose!</h2>
+            <img src="./resource/images/neckslice.png" ></img>
           </div>
         );
       }
