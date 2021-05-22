@@ -2,6 +2,9 @@
 import React, { Component}  from 'react';
 import './App.css';
 
+import Tippy from '@tippy.js/react';
+import 'tippy.js/dist/tippy.css';
+
 // AWS 
 import Amplify, {API, graphqlOperation}from 'aws-amplify';
 import awsconfig from './aws-exports';
@@ -38,6 +41,14 @@ class App extends Component {
       skill_name_3: "none",
       skill_name_4: "none",
 
+      skill_dict: [
+        {id: 'tanos', name: 'I love you 1500', desc: '상대방 1명이 이때까지 온 거리를 절반으로 줄입니다.'},
+        {id: 'backdoor', name: '어디로든 문', desc: '나와 상대방의 위치를 바꿉니다.'},
+        {id: 'infinite', name: 'MooYaHo', desc: '나를 제외한 모든 플레이어를 3블럭 뒤로 보냅니다.'},
+        {id: 'shoot', name: '안 되겠소. 쏩시다!', desc: '상대방 한 명을 즉시 사살합니다. (사망 시, 처음부터 다시 시작)'},
+        {id: 'doom', name: '함께 폭사하자', desc: '모든 플레이어를 사살합니다. (사망 시, 처음부터 다시 시작)'}
+      ],
+
       skill_name_1_resource: "resource/images/none.png",
       skill_name_2_resource: "resource/images/none.png",
       skill_name_3_resource: "resource/images/none.png",
@@ -54,6 +65,34 @@ class App extends Component {
       got_skill_4 : false,
     }
   }
+
+  skillInfo(name){
+    switch (name) {
+      case "tanos":
+        var arr = ['<' + this.state.skill_dict[0].name + '>', this.state.skill_dict[0].desc];
+        console.log(arr.join("\n"));
+        return arr.join("\n");
+      case "backdoor":
+        var arr = ['<' + this.state.skill_dict[1].name + '>', this.state.skill_dict[1].desc];
+        console.log(arr.join("\n"));
+        return arr.join("\n");
+      case "infinite":
+        var arr = ['<' + this.state.skill_dict[2].name + '>', this.state.skill_dict[2].desc];
+        console.log(arr.join("\n"));
+        return arr.join("\n");
+      case "shoot":
+        var arr = ['<' + this.state.skill_dict[3].name + '>', this.state.skill_dict[3].desc];
+        console.log(arr.join("\n"));
+        return arr.join("\n");
+      case "doom":
+        var arr = ['<' + this.state.skill_dict[4].name + '>', this.state.skill_dict[4].desc];
+        console.log(arr.join("\n"));
+        return arr.join("\n");
+      default:
+        return 'Waiting...'
+    }
+  }
+
   sleep(delay){
     var start = new Date().getTime();
     while (new Date().getTime() < start + delay);
@@ -1202,8 +1241,7 @@ class App extends Component {
       this.setState({isWinng : true});
       this.changeState("endgame");
 
-    }
-  
+  }  
 
   render(){
     var Enemy1 = "Enemy";
@@ -1214,6 +1252,8 @@ class App extends Component {
     var rank = ["1st", "1st", "1st", "1st"];
     var player_x = [this.state.player1_x, this.state.player2_x, this.state.player3_x, this.state.player4_x];
     var sort_x = [this.state.player1_x, this.state.player2_x, this.state.player3_x, this.state.player4_x];
+
+    
 
     if (this.state.player1_id === this.state.username){
       Enemy1 = "You";
@@ -1241,14 +1281,8 @@ class App extends Component {
       }
       else if (sort_x[0] === player_x[i]){
         rank[i] = "4th";
-      }
-      
+      } 
     }
-
-    
-    
-
-
 
     if (this.state.client_state === "init"){
       return (
@@ -1384,10 +1418,26 @@ class App extends Component {
               
               <div className="item" onClick={()=> this.moveChatacter()}>MOVE!!!!!!</div>            
         
-              <div className="item" onClick={()=>this.changeTogggle(1)}><span font-size><img src={this.state.skill_name_1_resource}/></span></div>
-              <div className="item" onClick={()=>this.changeTogggle(2)}><span font-size><img src={this.state.skill_name_2_resource}/></span></div>
-              <div className="item" onClick={()=>this.changeTogggle(3)}><span font-size><img src={this.state.skill_name_3_resource}/></span></div>
-              <div className="item" onClick={()=>this.changeTogggle(4)}><span font-size><img src={this.state.skill_name_4_resource}/></span></div>
+              <div className="item" onClick={()=>this.changeTogggle(1)}>
+                <Tippy content={this.skillInfo(this.state.skill_name_1)}>
+                  <span font-size><img src={this.state.skill_name_1_resource}/></span>
+                </Tippy>
+              </div>
+              <div className="item" onClick={()=>this.changeTogggle(2)}>
+                <Tippy content={this.skillInfo(this.state.skill_name_2)}>
+                  <span font-size><img src={this.state.skill_name_2_resource}/></span>
+                </Tippy>
+              </div>
+              <div className="item" onClick={()=>this.changeTogggle(3)}>
+                <Tippy content={this.skillInfo(this.state.skill_name_3)}>
+                  <span font-size><img src={this.state.skill_name_3_resource}/></span>
+                </Tippy>
+              </div>
+              <div className="item" onClick={()=>this.changeTogggle(4)}>
+               <Tippy content={this.skillInfo(this.state.skill_name_4)}>
+                  <span font-size><img src={this.state.skill_name_4_resource}/></span>
+                </Tippy>
+              </div>
           </div>
 
         </header>
