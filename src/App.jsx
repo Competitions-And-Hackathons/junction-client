@@ -30,7 +30,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state  = {
-      client_state : "playing",    // "playing" for test, 원래는 "init"
+      //client_state : "playing",    // "playing" for test, 원래는 "init"
       
       client_state : "init",
       skill_toggle_state : 0,
@@ -192,7 +192,7 @@ class App extends Component {
       await API.graphql(graphqlOperation(createOnGameSession, {input: createOnGameSessionInput}));
 
     }
-
+    this.setState({turn: 0});
   }
 
   getGameSettingData = ()=>{
@@ -755,16 +755,16 @@ class App extends Component {
         this.setState({skill_4_background_color: "#DD9C9C"});
       }
     }
-
+    this.setState({turn: 0});
   }
 
   async checkGetSkill(){
     if (this.state.my_number == 1){
-      if ((this.state.player1_x >= 0) && (this.state.got_skill_1 == false)){
+      /*if ((this.state.player1_x >= 0) && (this.state.got_skill_1 == false)){
         this.resetSkills();
         this.state.got_skill_1 = true;
-      }
-      else if ((this.state.player1_x >= 222) && (this.state.got_skill_2 == false)){
+      }*/
+      if ((this.state.player1_x >= 222) && (this.state.got_skill_2 == false)){
         this.resetSkills();
         this.state.got_skill_2 = true;
       }
@@ -782,11 +782,11 @@ class App extends Component {
     }
 
     else if (this.state.my_number == 2){
-      if ((this.state.player2_x >= 0) && (this.state.got_skill_1 == false)){
+      /*if ((this.state.player2_x >= 0) && (this.state.got_skill_1 == false)){
         this.resetSkills();
         this.state.got_skill_1 = true;
-      }
-      else if ((this.state.player2_x >= 222) && (this.state.got_skill_2 == false)){
+      }*/
+      if ((this.state.player2_x >= 222) && (this.state.got_skill_2 == false)){
         this.resetSkills();
         this.state.got_skill_2 = true;
       }
@@ -804,11 +804,11 @@ class App extends Component {
     }
 
     else if (this.state.my_number == 3){
-      if ((this.state.player3_x >= 0) && (this.state.got_skill_1 == false)){
+      /*if ((this.state.player3_x >= 0) && (this.state.got_skill_1 == false)){
         this.resetSkills();
         this.state.got_skill_1 = true;
-      }
-      else if ((this.state.player3_x >= 222) && (this.state.got_skill_2 == false)){
+      }*/
+      if ((this.state.player3_x >= 222) && (this.state.got_skill_2 == false)){
         this.resetSkills();
         this.state.got_skill_2 = true;
       }
@@ -826,11 +826,11 @@ class App extends Component {
     }
 
     else if (this.state.my_number == 4){
-      if ((this.state.player4_x >= 0) && (this.state.got_skill_1 == false)){
+      /*if ((this.state.player4_x >= 0) && (this.state.got_skill_1 == false)){
         this.resetSkills();
         this.state.got_skill_1 = true;
-      }
-      else if ((this.state.player4_x >= 222) && (this.state.got_skill_2 == false)){
+      }*/
+      if ((this.state.player4_x >= 222) && (this.state.got_skill_2 == false)){
         this.resetSkills();
         this.state.got_skill_2 = true;
       }
@@ -1008,6 +1008,8 @@ class App extends Component {
           }
         }
       }
+
+      this.setState({turn: 1});
 
       this.reset_skill_resource_path();
   }
@@ -1299,7 +1301,7 @@ class App extends Component {
     sort_x.sort(function (a, b){
       return a-b;
     });
-    console.log(sort_x);
+    
     for (var i=0; i<player_x.length; i++){
       if (sort_x[3] === player_x[i]){
         rank[i] = "1st";
@@ -1368,121 +1370,234 @@ class App extends Component {
     }
     else if (this.state.client_state === "playing"){      
       const _enemy = () => (this.checkEnemy);
-      //this.checkEnemy;
+      
+      if (this.state.turn === 0){   // only move
+        //console.log("for only move must 00000!!!!!");
+        return (
+          <header>
+            <ReactHowler
+                    src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/81396e40-15ea-4d1d-ae6f-7ee392314b3f/Ehrling_-_Lounge.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210521%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210521T230814Z&X-Amz-Expires=86400&X-Amz-Signature=b511ed1b33f00d0196b414f04cb55ade1d6881c785022b5aefbf84c77a419669&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Ehrling_-_Lounge.wav%22'
+                    playing={true}
+                    loop={true}
+                    volume={0.3}
+                />
+            <div className="tracks">
+              <div className="track_info_line"></div>
+              <div className="track_info_line"></div>
 
-      return (
-        <header>
-          <ReactHowler
-                  src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/81396e40-15ea-4d1d-ae6f-7ee392314b3f/Ehrling_-_Lounge.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210521%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210521T230814Z&X-Amz-Expires=86400&X-Amz-Signature=b511ed1b33f00d0196b414f04cb55ade1d6881c785022b5aefbf84c77a419669&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Ehrling_-_Lounge.wav%22'
-                  playing={true}
-                  loop={true}
-                  volume={0.3}
-              />
-          <div className="tracks">
-            <div className="track_info_line"></div>
-            <div className="track_info_line"></div>
+              <div className="track_info_line">
+                
+                <span className="track_info_text_has_margin">SKILL</span>
+                <span className="track_info_text_has_margin">SKILL</span>
+                <span className="track_info_text_has_margin">SKILL</span>
+                <span className="track_info_text_has_margin">WIN!!</span>
 
-            <div className="track_info_line">
-              <span className="track_info_text">SKILL</span>
-              <span className="track_info_text_has_margin">SKILL</span>
-              <span className="track_info_text_has_margin">SKILL</span>
-              <span className="track_info_text_has_margin">SKILL</span>
-              <span className="track_info_text_has_margin">WIN!!</span>
+              </div>
 
-            </div>
-
-            <div className="track_line"></div>
-            
-            <div className="track">
-              <span className="player-container" style={{paddingLeft: String(this.state.player1_x/10.0)+"%"}}>
-                <img src="./resource/images/running.png" alt="" className="runner_img" 
-                  style={{backgroundColor: this.state.skill_1_background_color}}
-                  onClick={() => this.spell_on_player(1)}></img>
-              </span>
-            </div>
-            
-            <div className="track_line"></div>
-            <div className="track">
-              <span className="player-container" style={{paddingLeft: String(this.state.player2_x/10.0)+"%"}}>
-                <img src="./resource/images/running.png" alt="" className="runner_img" 
-                  style={{backgroundColor: this.state.skill_2_background_color}}
-                  onClick={() => this.spell_on_player(2)}></img>
-              </span>
-            </div>
-            
-            <div className="track_line"></div>
-            <div className="track">
-              <span className="player-container" style={{paddingLeft: String(this.state.player3_x/10.0)+"%"}}>
-                <img src="./resource/images/running.png" alt="" className="runner_img" 
-                  style={{backgroundColor: this.state.skill_3_background_color}}
-                  onClick={() => this.spell_on_player(3)}></img>
-              </span>
-            </div>
-
-            <div className="track_line"></div>
-            <div className="track">
-              <span className="player-container" style={{paddingLeft: String(this.state.player4_x/10.0)+"%"}}>
-                <img src="./resource/images/running.png" alt="" className="runner_img" 
-                  style={{backgroundColor: this.state.skill_4_background_color}}
-                  onClick={() => this.spell_on_player(4)}></img>
-              </span>
-            </div>
-            <div className="track_line"></div>
-
-            <div className="track_info_line"></div>
-            <div className="track_info_line"></div>
-          </div>
-
-          <div className="container">
-              <div className="item">{rank[0]}</div>
-              <div className="item">{rank[1]}</div>
-              <div className="item">{rank[2]}</div>
-              <div className="item">{rank[3]}</div>
-
-              <div className="item">{this.state.player1_id}</div>
-              <div className="item">{this.state.player2_id}</div>
-              <div className="item">{this.state.player3_id}</div>
-              <div className="item">{this.state.player4_id}</div>
+              <div className="track_line"></div>
               
-              <div className="item">{Enemy1}</div>
-              <div className="item">Player is on {this.state.player1_x}</div>
-              <div className="item">{Enemy2}</div>
-              <div className="item">Player is on {this.state.player2_x}</div>
-              <div className="item">{Enemy3}</div>
-              <div className="item">Player is on {this.state.player3_x}</div>
-              <div className="item">{Enemy4}</div>
-              <div className="item">Player is on {this.state.player4_x}</div>
+              <div className="track">
+                <span className="player-container" style={{paddingLeft: String(this.state.player1_x/10.0)+"%"}}>
+                  <img src="./resource/images/running.png" alt="" className="runner_img" 
+                    style={{backgroundColor: this.state.skill_1_background_color}}
+                    onClick={() => this.spell_on_player(1)}></img>
+                </span>
+              </div>
               
-              <div className="item" onClick={()=> this.moveChatacter()}>MOVE!!!!!!</div>            
-        
-              <div className="item" onClick={()=>this.changeTogggle(1)}>
-                <Tippy content={this.skillInfo(this.state.skill_name_1)}>
-                  <span font-size><img src={this.state.skill_name_1_resource}/></span>
-                </Tippy>
+              <div className="track_line"></div>
+              <div className="track">
+                <span className="player-container" style={{paddingLeft: String(this.state.player2_x/10.0)+"%"}}>
+                  <img src="./resource/images/running.png" alt="" className="runner_img" 
+                    style={{backgroundColor: this.state.skill_2_background_color}}
+                    onClick={() => this.spell_on_player(2)}></img>
+                </span>
               </div>
-              <div className="item" onClick={()=>this.changeTogggle(2)}>
-                <Tippy content={this.skillInfo(this.state.skill_name_2)}>
-                  <span font-size><img src={this.state.skill_name_2_resource}/></span>
-                </Tippy>
+              
+              <div className="track_line"></div>
+              <div className="track">
+                <span className="player-container" style={{paddingLeft: String(this.state.player3_x/10.0)+"%"}}>
+                  <img src="./resource/images/running.png" alt="" className="runner_img" 
+                    style={{backgroundColor: this.state.skill_3_background_color}}
+                    onClick={() => this.spell_on_player(3)}></img>
+                </span>
               </div>
-              <div className="item" onClick={()=>this.changeTogggle(3)}>
-                <Tippy content={this.skillInfo(this.state.skill_name_3)}>
-                  <span font-size><img src={this.state.skill_name_3_resource}/></span>
-                </Tippy>
-              </div>
-              <div className="item" onClick={()=>this.changeTogggle(4)}>
-               <Tippy content={this.skillInfo(this.state.skill_name_4)}>
-                  <span font-size><img src={this.state.skill_name_4_resource}/></span>
-                </Tippy>
-              </div>
-          </div>
 
-        </header>
+              <div className="track_line"></div>
+              <div className="track">
+                <span className="player-container" style={{paddingLeft: String(this.state.player4_x/10.0)+"%"}}>
+                  <img src="./resource/images/running.png" alt="" className="runner_img" 
+                    style={{backgroundColor: this.state.skill_4_background_color}}
+                    onClick={() => this.spell_on_player(4)}></img>
+                </span>
+              </div>
+              <div className="track_line"></div>
 
-        
-        
- 
-      );
+              <div className="track_info_line"></div>
+              <div className="track_info_line"></div>
+            </div>
+
+            <div className="container">
+                <div className="item">{rank[0]}</div>
+                <div className="item">{rank[1]}</div>
+                <div className="item">{rank[2]}</div>
+                <div className="item">{rank[3]}</div>
+
+                <div className="item">{this.state.player1_id}</div>
+                <div className="item">{this.state.player2_id}</div>
+                <div className="item">{this.state.player3_id}</div>
+                <div className="item">{this.state.player4_id}</div>
+                
+                <div className="item">{Enemy1}</div>
+                <div className="item">Player is on {this.state.player1_x}</div>
+                <div className="item">{Enemy2}</div>
+                <div className="item">Player is on {this.state.player2_x}</div>
+                <div className="item">{Enemy3}</div>
+                <div className="item">Player is on {this.state.player3_x}</div>
+                <div className="item">{Enemy4}</div>
+                <div className="item">Player is on {this.state.player4_x}</div>
+                
+                <div className="item" onClick={()=> this.moveChatacter()}>MOVE!!!!!!</div>            
+          
+                <div className="item">
+                  <Tippy content={this.skillInfo(this.state.skill_name_1)}>
+                    <span font-size><img src={this.state.skill_name_1_resource}/></span>
+                  </Tippy>
+                </div>
+                <div className="item">
+                  <Tippy content={this.skillInfo(this.state.skill_name_2)}>
+                    <span font-size><img src={this.state.skill_name_2_resource}/></span>
+                  </Tippy>
+                </div>
+                <div className="item">
+                  <Tippy content={this.skillInfo(this.state.skill_name_3)}>
+                    <span font-size><img src={this.state.skill_name_3_resource}/></span>
+                  </Tippy>
+                </div>
+                <div className="item">
+                <Tippy content={this.skillInfo(this.state.skill_name_4)}>
+                    <span font-size><img src={this.state.skill_name_4_resource}/></span>
+                  </Tippy>
+                </div>
+            </div>
+
+          </header>
+        );
+      }
+      else{   // only skill
+        console.log(this.state.turn);
+        console.log("for only skill must 00000000!!!!!");
+        return (
+          <header>
+            <ReactHowler
+                    src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/81396e40-15ea-4d1d-ae6f-7ee392314b3f/Ehrling_-_Lounge.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210521%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210521T230814Z&X-Amz-Expires=86400&X-Amz-Signature=b511ed1b33f00d0196b414f04cb55ade1d6881c785022b5aefbf84c77a419669&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Ehrling_-_Lounge.wav%22'
+                    playing={true}
+                    loop={true}
+                    volume={0.3}
+                />
+            <div className="tracks">
+              <div className="track_info_line"></div>
+              <div className="track_info_line"></div>
+
+              <div className="track_info_line">
+                
+                <span className="track_info_text_has_margin">SKILL</span>
+                <span className="track_info_text_has_margin">SKILL</span>
+                <span className="track_info_text_has_margin">SKILL</span>
+                <span className="track_info_text_has_margin">WIN!!</span>
+
+              </div>
+
+              <div className="track_line"></div>
+              
+              <div className="track">
+                <span className="player-container" style={{paddingLeft: String(this.state.player1_x/10.0)+"%"}}>
+                  <img src="./resource/images/running.png" alt="" className="runner_img" 
+                    style={{backgroundColor: this.state.skill_1_background_color}}
+                    onClick={() => this.spell_on_player(1)}></img>
+                </span>
+              </div>
+              
+              <div className="track_line"></div>
+              <div className="track">
+                <span className="player-container" style={{paddingLeft: String(this.state.player2_x/10.0)+"%"}}>
+                  <img src="./resource/images/running.png" alt="" className="runner_img" 
+                    style={{backgroundColor: this.state.skill_2_background_color}}
+                    onClick={() => this.spell_on_player(2)}></img>
+                </span>
+              </div>
+              
+              <div className="track_line"></div>
+              <div className="track">
+                <span className="player-container" style={{paddingLeft: String(this.state.player3_x/10.0)+"%"}}>
+                  <img src="./resource/images/running.png" alt="" className="runner_img" 
+                    style={{backgroundColor: this.state.skill_3_background_color}}
+                    onClick={() => this.spell_on_player(3)}></img>
+                </span>
+              </div>
+
+              <div className="track_line"></div>
+              <div className="track">
+                <span className="player-container" style={{paddingLeft: String(this.state.player4_x/10.0)+"%"}}>
+                  <img src="./resource/images/running.png" alt="" className="runner_img" 
+                    style={{backgroundColor: this.state.skill_4_background_color}}
+                    onClick={() => this.spell_on_player(4)}></img>
+                </span>
+              </div>
+              <div className="track_line"></div>
+
+              <div className="track_info_line"></div>
+              <div className="track_info_line"></div>
+            </div>
+
+            <div className="container">
+                <div className="item">{rank[0]}</div>
+                <div className="item">{rank[1]}</div>
+                <div className="item">{rank[2]}</div>
+                <div className="item">{rank[3]}</div>
+
+                <div className="item">{this.state.player1_id}</div>
+                <div className="item">{this.state.player2_id}</div>
+                <div className="item">{this.state.player3_id}</div>
+                <div className="item">{this.state.player4_id}</div>
+                
+                <div className="item">{Enemy1}</div>
+                <div className="item">Player is on {this.state.player1_x}</div>
+                <div className="item">{Enemy2}</div>
+                <div className="item">Player is on {this.state.player2_x}</div>
+                <div className="item">{Enemy3}</div>
+                <div className="item">Player is on {this.state.player3_x}</div>
+                <div className="item">{Enemy4}</div>
+                <div className="item">Player is on {this.state.player4_x}</div>
+                
+                <div className="item">MOVE!!!!!!</div>            
+          
+                <div className="item" onClick={()=>this.changeTogggle(1)}>
+                  <Tippy content={this.skillInfo(this.state.skill_name_1)}>
+                    <span font-size><img src={this.state.skill_name_1_resource}/></span>
+                  </Tippy>
+                </div>
+                <div className="item" onClick={()=>this.changeTogggle(2)}>
+                  <Tippy content={this.skillInfo(this.state.skill_name_2)}>
+                    <span font-size><img src={this.state.skill_name_2_resource}/></span>
+                  </Tippy>
+                </div>
+                <div className="item" onClick={()=>this.changeTogggle(3)}>
+                  <Tippy content={this.skillInfo(this.state.skill_name_3)}>
+                    <span font-size><img src={this.state.skill_name_3_resource}/></span>
+                  </Tippy>
+                </div>
+                <div className="item" onClick={()=>this.changeTogggle(4)}>
+                <Tippy content={this.skillInfo(this.state.skill_name_4)}>
+                    <span font-size><img src={this.state.skill_name_4_resource}/></span>
+                  </Tippy>
+                </div>
+            </div>
+
+          </header>
+        );
+      }
+
+
     }
     else if (this.state.client_state === "endgame"){
       if (this.state.isWinng){
