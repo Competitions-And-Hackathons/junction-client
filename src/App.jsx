@@ -39,6 +39,11 @@ class App extends Component {
       skill_name_3: "none",
       skill_name_4: "none",
 
+      skill_name_1_resource: "resource/images/none.png",
+      skill_name_2_resource: "resource/images/none.png",
+      skill_name_3_resource: "resource/images/none.png",
+      skill_name_4_resource: "resource/images/none.png",
+
       got_skill_1 : false,
       got_skill_2 : false,
       got_skill_3 : false,
@@ -244,8 +249,6 @@ class App extends Component {
   async moveChatacter(){
     await this.loadGameData();
     
-
-
     if (this.state.my_number == 1){
 
       const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
@@ -264,9 +267,6 @@ class App extends Component {
       const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
       this.setState({player1_x : parseInt(my_game.player1_x)});
-
-      console.log(this.state.player1_x);
-      
     }
 
     else if (this.state.my_number == 2){
@@ -286,8 +286,7 @@ class App extends Component {
 
       const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
-      this.setState({player2_x : parseInt(updated_game.player2_x)});
-      
+      this.setState({player2_x : parseInt(my_game.player2_x)});
     }
 
     else if (this.state.my_number == 3){
@@ -307,7 +306,7 @@ class App extends Component {
 
       const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
-      this.setState({player3_x : parseInt(updated_game.player3_x)});
+      this.setState({player3_x : parseInt(my_game.player3_x)});
       
     }
 
@@ -328,9 +327,11 @@ class App extends Component {
 
       const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
-      this.setState({player4_x : parseInt(updated_game.player4_x)});
+      this.setState({player4_x : parseInt(my_game.player4_x)});
       
     }
+
+    this.checkGetSkill()
 
   }
 
@@ -340,30 +341,253 @@ class App extends Component {
 
   checkGetSkill(){
     if (this.state.my_number == 1){
-      if ((this.state.player1_x <= 0) && (this.state.got_skill_1 == false)){
-        
+      if ((this.state.player1_x >= 0) && (this.state.got_skill_1 == false)){
+        this.resetSkills();
+        this.state.got_skill_1 = true;
+      }
+      else if ((this.state.player1_x >= 160) && (this.state.got_skill_2 == false)){
+        this.resetSkills();
+        this.state.got_skill_2 = true;
+      }
+      else if ((this.state.player1_x >= 335) && (this.state.got_skill_3 == false)){
+        this.resetSkills();
+        this.state.got_skill_3 = true;
+      }
+      else if ((this.state.player1_x >= 505) && (this.state.got_skill_4 == false)){
+        this.resetSkills();
+        this.state.got_skill_4 = true;
       }
     }
+
     else if (this.state.my_number == 2){
-      console.log(this.state.player2_x);
+      if ((this.state.player2_x >= 0) && (this.state.got_skill_1 == false)){
+        this.resetSkills();
+        this.state.got_skill_1 = true;
+      }
+      else if ((this.state.player2_x >= 160) && (this.state.got_skill_2 == false)){
+        this.resetSkills();
+        this.state.got_skill_2 = true;
+      }
+      else if ((this.state.player2_x >= 335) && (this.state.got_skill_3 == false)){
+        this.resetSkills();
+        this.state.got_skill_3 = true;
+      }
+      else if ((this.state.player2_x >= 505) && (this.state.got_skill_4 == false)){
+        this.resetSkills();
+        this.state.got_skill_4 = true;
+      }
     }
+
     else if (this.state.my_number == 3){
-      console.log(this.state.player3_x);
+      if ((this.state.player3_x >= 0) && (this.state.got_skill_1 == false)){
+        this.resetSkills();
+        this.state.got_skill_1 = true;
+      }
+      else if ((this.state.player3_x >= 160) && (this.state.got_skill_2 == false)){
+        this.resetSkills();
+        this.state.got_skill_2 = true;
+      }
+      else if ((this.state.player3_x >= 335) && (this.state.got_skill_3 == false)){
+        this.resetSkills();
+        this.state.got_skill_3 = true;
+      }
+      else if ((this.state.player3_x >= 505) && (this.state.got_skill_4 == false)){
+        this.resetSkills();
+        this.state.got_skill_4 = true;
+      }
     }
+
     else if (this.state.my_number == 4){
-      console.log(this.state.player4_x);
+      if ((this.state.player4_x >= 0) && (this.state.got_skill_1 == false)){
+        this.resetSkills();
+        this.state.got_skill_1 = true;
+      }
+      else if ((this.state.player4_x >= 160) && (this.state.got_skill_2 == false)){
+        this.resetSkills();
+        this.state.got_skill_2 = true;
+      }
+      else if ((this.state.player4_x >= 335) && (this.state.got_skill_3 == false)){
+        this.resetSkills();
+        this.state.got_skill_3 = true;
+      }
+      else if ((this.state.player4_x >= 505) && (this.state.got_skill_4 == false)){
+        this.resetSkills();
+        this.state.got_skill_4 = true;
+      }
     }
   }
 
   resetSkills(){
-    for (let skill_index = 0; skill_index<4; skill_index++){
+
       let random_int = Math.random() * (100)
 
       if (random_int <= this.state.gameSetting[0].tanos){
+        this.setState({skill_name_1: "tanos"});
 
       }
+
+      else{
+        random_int -= this.state.gameSetting[0].tanos;
+
+        if (random_int <= this.state.gameSetting[0].backdoor){
+          this.setState({skill_name_1: "backdoor"});
+
+        }
+
+        else{
+          random_int -= this.state.gameSetting[0].backdoor;
+
+          if (random_int <= this.state.gameSetting[0].infinite){
+            this.setState({skill_name_1: "infinite"});
+
+          }
+
+          else {
+            random_int -= this.state.gameSetting[0].infinite;
+
+            if (random_int <= this.state.gameSetting[0].shoot){
+              this.setState({skill_name_1: "shoot"});
+
+            }
+
+            else {
+              this.setState({skill_name_1: "doom"});
+            }
+
+          }
+        }
+      }
+
+
+      random_int = Math.random() * (100)
+
+      if (random_int <= this.state.gameSetting[0].tanos){
+        this.setState({skill_name_2: "tanos"});
+
+      }
+
+      else{
+        random_int -= this.state.gameSetting[0].tanos;
+
+        if (random_int <= this.state.gameSetting[0].backdoor){
+          this.setState({skill_name_2: "backdoor"});
+
+        }
+
+        else{
+          random_int -= this.state.gameSetting[0].backdoor;
+
+          if (random_int <= this.state.gameSetting[0].infinite){
+            this.setState({skill_name_2: "infinite"});
+
+          }
+
+          else {
+            random_int -= this.state.gameSetting[0].infinite;
+
+            if (random_int <= this.state.gameSetting[0].shoot){
+              this.setState({skill_name_2: "shoot"});
+
+            }
+
+            else {
+              this.setState({skill_name_2: "doom"});
+            }
+
+          }
+        }
+      }
+
+
+
+      random_int = Math.random() * (100)
+
+      if (random_int <= this.state.gameSetting[0].tanos){
+        this.setState({skill_name_3: "tanos"});
+
+      }
+
+      else{
+        random_int -= this.state.gameSetting[0].tanos;
+
+        if (random_int <= this.state.gameSetting[0].backdoor){
+          this.setState({skill_name_3: "backdoor"});
+
+        }
+
+        else{
+          random_int -= this.state.gameSetting[0].backdoor;
+
+          if (random_int <= this.state.gameSetting[0].infinite){
+            this.setState({skill_name_3: "infinite"});
+
+          }
+
+          else {
+            random_int -= this.state.gameSetting[0].infinite;
+
+            if (random_int <= this.state.gameSetting[0].shoot){
+              this.setState({skill_name_3: "shoot"});
+
+            }
+
+            else {
+              this.setState({skill_name_3: "doom"});
+            }
+
+          }
+        }
+      }
+
+      random_int = Math.random() * (100)
+
+      if (random_int <= this.state.gameSetting[0].tanos){
+        this.setState({skill_name_4: "tanos"});
+
+      }
+
+      else{
+        random_int -= this.state.gameSetting[0].tanos;
+
+        if (random_int <= this.state.gameSetting[0].backdoor){
+          this.setState({skill_name_4: "backdoor"});
+
+        }
+
+        else{
+          random_int -= this.state.gameSetting[0].backdoor;
+
+          if (random_int <= this.state.gameSetting[0].infinite){
+            this.setState({skill_name_4: "infinite"});
+
+          }
+
+          else {
+            random_int -= this.state.gameSetting[0].infinite;
+
+            if (random_int <= this.state.gameSetting[0].shoot){
+              this.setState({skill_name_4: "shoot"});
+
+            }
+
+            else {
+              this.setState({skill_name_4: "doom"});
+            }
+
+          }
+        }
+      }
+
+      this.reset_skill_resource_path();
     }
-  }
+  
+    reset_skill_resource_path(){
+      this.setState({skill_name_1_resource: "resource/images/" + this.state.skill_name_1 + ".png"});
+      this.setState({skill_name_2_resource: "resource/images/" + this.state.skill_name_2 + ".png"});
+      this.setState({skill_name_3_resource: "resource/images/" + this.state.skill_name_3 + ".png"});
+      this.setState({skill_name_4_resource: "resource/images/" + this.state.skill_name_4 + ".png"});
+    }
+  
 
   render(){
     if (this.state.client_state === "init"){
@@ -463,9 +687,6 @@ class App extends Component {
             <div className="track_info_line"></div>
           </div>
 
-
-
-
           <div class="container">
               <div class="item">{this.state.player[0].num}.</div>
               <div class="item">{this.state.player[1].num}.</div>
@@ -488,10 +709,10 @@ class App extends Component {
 
               <div class="item" onClick={()=> this.moveChatacter()}>MOVE!!!!!!</div>            
         
-              <div class="item"><span font-size><img src="resource/images/infinite.png"/></span></div>
-              <div class="item"><span font-size><img src="resource/images/hammer.png"/></span></div>
-              <div class="item"><span font-size><img src="resource/images/missile.png"/></span></div>
-              <div class="item"><span font-size><img src="resource/images/doom.png"/></span></div>
+              <div class="item" onClick={()=>this.changeTogggle(1)}><span font-size><img src={this.state.skill_name_1_resource}/></span></div>
+              <div class="item" onClick={()=>this.changeTogggle(2)}><span font-size><img src={this.state.skill_name_2_resource}/></span></div>
+              <div class="item" onClick={()=>this.changeTogggle(3)}><span font-size><img src={this.state.skill_name_3_resource}/></span></div>
+              <div class="item" onClick={()=>this.changeTogggle(4)}><span font-size><img src={this.state.skill_name_4_resource}/></span></div>
           </div>
 
         </header>

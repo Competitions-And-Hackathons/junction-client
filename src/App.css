@@ -91,6 +91,7 @@ body{
   height: 100%;
 }
 
+
 .runner_img{
 
   position: relative;
@@ -99,6 +100,10 @@ body{
   width: 100%;
   height: 100%;
   vertical-align:middle;
+}
+
+.runner_img:hover{
+  background-color: skyblue;
 }
 
 .tile-container{
@@ -333,6 +338,23 @@ span img{
   border: 3px solid #FF0000;
 }
 
+.item:nth-child(18):hover{
+  background-color: skyblue;
+}
+
+.item:nth-child(19):hover{
+  background-color: skyblue;
+}
+
+.item:nth-child(20):hover{
+  background-color: skyblue;
+}
+
+.item:nth-child(21):hover{
+  background-color: skyblue;
+}
+
+
 .skill_box:hover{
   background-color: skyblue;
 }
@@ -344,3 +366,4 @@ span img{
   margin-left : 0.5vw;
   margin-top : 0.5vw;
 }
+
