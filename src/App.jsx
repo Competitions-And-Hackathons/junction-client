@@ -80,23 +80,18 @@ class App extends Component {
     switch (name) {
       case "tanos":
         var arr = ['<' + this.state.skill_dict[0].name + '>', this.state.skill_dict[0].desc];
-        console.log(arr.join("\n"));
         return arr.join("\n");
       case "backdoor":
         var arr = ['<' + this.state.skill_dict[1].name + '>', this.state.skill_dict[1].desc];
-        console.log(arr.join("\n"));
         return arr.join("\n");
       case "infinite":
         var arr = ['<' + this.state.skill_dict[2].name + '>', this.state.skill_dict[2].desc];
-        console.log(arr.join("\n"));
         return arr.join("\n");
       case "shoot":
         var arr = ['<' + this.state.skill_dict[3].name + '>', this.state.skill_dict[3].desc];
-        console.log(arr.join("\n"));
         return arr.join("\n");
       case "doom":
         var arr = ['<' + this.state.skill_dict[4].name + '>', this.state.skill_dict[4].desc];
-        console.log(arr.join("\n"));
         return arr.join("\n");
       default:
         return 'Waiting...'
@@ -1283,12 +1278,10 @@ class App extends Component {
     var Enemy3 = "Enemy";
     var Enemy4 = "Enemy";
 
-    var rank = ["1st", "1st", "1st", "1st"];
-    var player_x = [this.state.player1_x, this.state.player2_x, this.state.player3_x, this.state.player4_x];
-    var sort_x = [this.state.player1_x, this.state.player2_x, this.state.player3_x, this.state.player4_x];
-
-    
-
+    var rank = ["1st", "1st", "1st", "1st"];    // player1의 순위, player2의 순위, player3의 순위, palyer4의 순위
+    var player_x = [Number(this.state.player1_x), Number(this.state.player2_x), Number(this.state.player3_x), Number(this.state.player4_x)];
+    var sort_x = [Number(this.state.player1_x), Number(this.state.player2_x), Number(this.state.player3_x), Number(this.state.player4_x)];
+    //console.log(sort_x);
     if (this.state.player1_id === this.state.username){
       Enemy1 = "You";
     }
@@ -1302,7 +1295,10 @@ class App extends Component {
       Enemy4 = "You";
     }
 
-    sort_x.sort()
+    sort_x.sort(function (a, b){
+      return a-b;
+    });
+    console.log(sort_x);
     for (var i=0; i<player_x.length; i++){
       if (sort_x[3] === player_x[i]){
         rank[i] = "1st";
