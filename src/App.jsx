@@ -9,7 +9,7 @@ import {AmplifySignOut, withAuthenticator} from '@aws-amplify/ui-react';
 
 // AWS APIs
 import {listMMRs, listSessionWaitings, listSessionMatchings, listOnGameSessions, listOnGameSkills} from './graphql/queries'
-import {createMMR, createSessionWaiting, deleteSessionWaiting, createSessionMatching, deleteSessionMatching, createOnGameSession, updateOnGameSession, deleteOnGameSession, createOnGameSkill, updateOnGameSkill} from './graphql/mutations'
+import {createMMR, createSessionWaiting, deleteSessionWaiting, createSessionMatching, deleteSessionMatching, createOnGameSession, updateOnGameSession, deleteOnGameSession, createOnGameSkill, updateOnGameSkill, createSkillSummary} from './graphql/mutations'
 
 //uuid
 import {v4 as uuid} from 'uuid'
@@ -229,235 +229,243 @@ class App extends Component {
 
     const my_game = OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
-    this.setState({player1_x : parseInt(my_game.player1_x)});
-    this.setState({player2_x : parseInt(my_game.player2_x)});
-    this.setState({player3_x : parseInt(my_game.player3_x)});
-    this.setState({player4_x : parseInt(my_game.player4_x)});
+    if (my_game !== undefined){
+      this.setState({player1_x : parseInt(my_game.player1_x)});
+      this.setState({player2_x : parseInt(my_game.player2_x)});
+      this.setState({player3_x : parseInt(my_game.player3_x)});
+      this.setState({player4_x : parseInt(my_game.player4_x)});
+    
 
+ 
+      const OnGameSkillsList = await API.graphql(graphqlOperation(listOnGameSkills))
+      let OnGameSkillsListItems =  OnGameSkillsList.data.listOnGameSkills.items;
 
-    //skill sync 
-    const OnGameSkillsList = await API.graphql(graphqlOperation(listOnGameSkills))
-    let OnGameSkillsListItems =  OnGameSkillsList.data.listOnGameSkills.items;
+      let skills_to_apply = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+        OnGameSkillsListItem.gameid === this.state.gameid && 
+        OnGameSkillsListItem.skill_state === "casted" && 
+        OnGameSkillsListItem.target_player == this.state.my_number);
 
-    let skills_to_apply = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
-      OnGameSkillsListItem.gameid === this.state.gameid && 
-      OnGameSkillsListItem.skill_state === "casted" && 
-      OnGameSkillsListItem.target_player == this.state.my_number);
+        if (skills_to_apply !== undefined){
+          for (let skill_index = 0; skill_index < skills_to_apply.length; skills_to_apply++){
+            let skill_to_apply = skills_to_apply[skill_index];
+            const apply_skill_name = skill_to_apply.skill_name;
 
-      if (skills_to_apply !== undefined){
-        for (let skill_index = 0; skill_index < skills_to_apply.length; skills_to_apply++){
-          let skill_to_apply = skills_to_apply[skill_index];
-          const apply_skill_name = skill_to_apply.skill_name;
+            //skill sync 
+            if (apply_skill_name === "tanos"){
+              if (this.state.my_number == 1){
+                this.setState({player1_x : this.state.player1_x/2});
+              }
 
-          if (apply_skill_name === "tanos"){
-            if (this.state.my_number == 1){
-              this.setState({player1_x : this.state.player1_x/2});
+              else if (this.state.my_number == 2){
+                this.setState({player2_x : this.state.player2_x/2});
+              }
+
+              else if (this.state.my_number == 3){
+                this.setState({player3_x : this.state.player3_x/2});
+              }
+
+              else if (this.state.my_number == 4){
+                this.setState({player4_x : this.state.player4_x/2});
+              }
             }
 
-            else if (this.state.my_number == 2){
-              this.setState({player2_x : this.state.player2_x/2});
+            else if (apply_skill_name === "backdoor"){
+              if (this.state.my_number == 1){
+                if (skill_to_apply.source_player == 2){
+                  const old_source_x = this.state.player2_x;
+                  const old_target_x = this.state.player1_x;
+
+                  this.setState({player2_x : old_target_x});
+                  this.setState({player1_x : old_source_x});
+
+                }
+                else if (skill_to_apply.source_player == 3){
+                  const old_source_x = this.state.player3_x;
+                  const old_target_x = this.state.player1_x;
+
+                  this.setState({player3_x : old_target_x});
+                  this.setState({player1_x : old_source_x});
+
+                }
+                else if (skill_to_apply.source_player == 4){
+                  const old_source_x = this.state.player4_x;
+                  const old_target_x = this.state.player1_x;
+
+                  this.setState({player4_x : old_target_x});
+                  this.setState({player1_x : old_source_x});
+
+                }
+              }
+
+              else if (this.state.my_number == 2){
+                if (skill_to_apply.source_player == 1){
+                  const old_source_x = this.state.player1_x;
+                  const old_target_x = this.state.player2_x;
+
+                  this.setState({player1_x : old_target_x});
+                  this.setState({player2_x : old_source_x});
+
+                }
+                else if (skill_to_apply.source_player == 3){
+                  const old_source_x = this.state.player3_x;
+                  const old_target_x = this.state.player2_x;
+
+                  this.setState({player3_x : old_target_x});
+                  this.setState({player2_x : old_source_x});
+
+                }
+                else if (skill_to_apply.source_player == 4){
+                  const old_source_x = this.state.player4_x;
+                  const old_target_x = this.state.player2_x;
+
+                  this.setState({player4_x : old_target_x});
+                  this.setState({player2_x : old_source_x});
+
+                }
+              }
+
+              else if (this.state.my_number == 3){
+                if (skill_to_apply.source_player == 1){
+                  const old_source_x = this.state.player1_x;
+                  const old_target_x = this.state.player3_x;
+    
+                  this.setState({player1_x : old_target_x});
+                  this.setState({player3_x : old_source_x});
+    
+                }
+                else if (skill_to_apply.source_player == 2){
+                  const old_source_x = this.state.player2_x;
+                  const old_target_x = this.state.player3_x;
+    
+                  this.setState({player2_x : old_target_x});
+                  this.setState({player3_x : old_source_x});
+    
+                }
+                else if (skill_to_apply.source_player == 4){
+                  const old_source_x = this.state.player4_x;
+                  const old_target_x = this.state.player3_x;
+    
+                  this.setState({player4_x : old_target_x});
+                  this.setState({player3_x : old_source_x});
+    
+                }
+              }
+
+              else  if (this.state.my_number == 4){
+                if (skill_to_apply.source_player == 1){
+                  const old_source_x = this.state.player1_x;
+                  const old_target_x = this.state.player4_x;
+
+                  this.setState({player1_x : old_target_x});
+                  this.setState({player4_x : old_source_x});
+
+                }
+                else if (skill_to_apply.source_player == 2){
+                  const old_source_x = this.state.player2_x;
+                  const old_target_x = this.state.player4_x;
+
+                  this.setState({player2_x : old_target_x});
+                  this.setState({player4_x : old_source_x});
+
+                }
+                else if (skill_to_apply.source_player == 3){
+                  const old_source_x = this.state.player3_x;
+                  const old_target_x = this.state.player4_x;
+
+                  this.setState({player3_x : old_target_x});
+                  this.setState({player4_x : old_source_x});
+
+                }
+              }
             }
 
-            else if (this.state.my_number == 3){
-              this.setState({player3_x : this.state.player3_x/2});
+            else if (apply_skill_name === "infinite"){
+              if (this.state.my_number == 1){
+                let new_x = this.state.player1_x - 200;
+                if (new_x < 0){new_x = 0;}
+
+                this.setState({player1_x : new_x});
+              }
+
+              else if (this.state.my_number == 2){
+                let new_x = this.state.player2_x - 200;
+                if (new_x < 0){new_x = 0;}
+
+                this.setState({player2_x : new_x});
+              }
+
+              else if (this.state.my_number == 3){
+                let new_x = this.state.player3_x - 200;
+                if (new_x < 0){new_x = 0;}
+
+                this.setState({player3_x : new_x});
+              }
+
+              else if (this.state.my_number == 4){
+                let new_x = this.state.player4_x - 200;
+                if (new_x < 0){new_x = 0;}
+
+                this.setState({player4_x : new_x});
+              }
             }
 
-            else if (this.state.my_number == 4){
-              this.setState({player4_x : this.state.player4_x/2});
+            else if (apply_skill_name === "shoot" || apply_skill_name === "doom"){
+              if (this.state.my_number == 1){
+
+                this.setState({got_skill_1 : 0});
+                this.setState({got_skill_2 : 0});
+                this.setState({got_skill_3 : 0});
+                this.setState({got_skill_4 : 0});
+
+                this.setState({player1_x : 0});
+              }
+
+              else if (this.state.my_number == 2){
+
+                this.setState({got_skill_1 : 0});
+                this.setState({got_skill_2 : 0});
+                this.setState({got_skill_3 : 0});
+                this.setState({got_skill_4 : 0});
+
+                this.setState({player2_x : 0});
+              }
+
+              else if (this.state.my_number == 3){
+
+                this.setState({got_skill_1 : 0});
+                this.setState({got_skill_2 : 0});
+                this.setState({got_skill_3 : 0});
+                this.setState({got_skill_4 : 0});
+
+                this.setState({player3_x : 0});
+              }
+
+              else if (this.state.my_number == 4){
+
+                this.setState({got_skill_1 : 0});
+                this.setState({got_skill_2 : 0});
+                this.setState({got_skill_3 : 0});
+                this.setState({got_skill_4 : 0});
+
+                this.setState({player4_x : 0});
+              }
             }
+
+
+            skill_to_apply.skill_state = "applied"
+
+            delete skill_to_apply.createdAt;
+            delete skill_to_apply.updatedAt;
+
+            await API.graphql(graphqlOperation(updateOnGameSkill, {input:skill_to_apply}))
           }
-
-          else if (apply_skill_name === "backdoor"){
-            if (this.state.my_number == 1){
-              if (skill_to_apply.source_player == 2){
-                const old_source_x = this.state.player2_x;
-                const old_target_x = this.state.player1_x;
-
-                this.setState({player2_x : old_target_x});
-                this.setState({player1_x : old_source_x});
-
-              }
-              else if (skill_to_apply.source_player == 3){
-                const old_source_x = this.state.player3_x;
-                const old_target_x = this.state.player1_x;
-
-                this.setState({player3_x : old_target_x});
-                this.setState({player1_x : old_source_x});
-
-              }
-              else if (skill_to_apply.source_player == 4){
-                const old_source_x = this.state.player4_x;
-                const old_target_x = this.state.player1_x;
-
-                this.setState({player4_x : old_target_x});
-                this.setState({player1_x : old_source_x});
-
-              }
-            }
-
-            else if (this.state.my_number == 2){
-              if (skill_to_apply.source_player == 1){
-                const old_source_x = this.state.player1_x;
-                const old_target_x = this.state.player2_x;
-
-                this.setState({player1_x : old_target_x});
-                this.setState({player2_x : old_source_x});
-
-              }
-              else if (skill_to_apply.source_player == 3){
-                const old_source_x = this.state.player3_x;
-                const old_target_x = this.state.player2_x;
-
-                this.setState({player3_x : old_target_x});
-                this.setState({player2_x : old_source_x});
-
-              }
-              else if (skill_to_apply.source_player == 4){
-                const old_source_x = this.state.player4_x;
-                const old_target_x = this.state.player2_x;
-
-                this.setState({player4_x : old_target_x});
-                this.setState({player2_x : old_source_x});
-
-              }
-            }
-
-            else if (this.state.my_number == 3){
-              if (skill_to_apply.source_player == 1){
-                const old_source_x = this.state.player1_x;
-                const old_target_x = this.state.player3_x;
-  
-                this.setState({player1_x : old_target_x});
-                this.setState({player3_x : old_source_x});
-  
-              }
-              else if (skill_to_apply.source_player == 2){
-                const old_source_x = this.state.player2_x;
-                const old_target_x = this.state.player3_x;
-  
-                this.setState({player2_x : old_target_x});
-                this.setState({player3_x : old_source_x});
-  
-              }
-              else if (skill_to_apply.source_player == 4){
-                const old_source_x = this.state.player4_x;
-                const old_target_x = this.state.player3_x;
-  
-                this.setState({player4_x : old_target_x});
-                this.setState({player3_x : old_source_x});
-  
-              }
-            }
-
-            else  if (this.state.my_number == 4){
-              if (skill_to_apply.source_player == 1){
-                const old_source_x = this.state.player1_x;
-                const old_target_x = this.state.player4_x;
-
-                this.setState({player1_x : old_target_x});
-                this.setState({player4_x : old_source_x});
-
-              }
-              else if (skill_to_apply.source_player == 2){
-                const old_source_x = this.state.player2_x;
-                const old_target_x = this.state.player4_x;
-
-                this.setState({player2_x : old_target_x});
-                this.setState({player4_x : old_source_x});
-
-              }
-              else if (skill_to_apply.source_player == 3){
-                const old_source_x = this.state.player3_x;
-                const old_target_x = this.state.player4_x;
-
-                this.setState({player3_x : old_target_x});
-                this.setState({player4_x : old_source_x});
-
-              }
-            }
-          }
-
-          else if (apply_skill_name === "infinite"){
-            if (this.state.my_number == 1){
-              let new_x = this.state.player1_x - 200;
-              if (new_x < 0){new_x = 0;}
-
-              this.setState({player1_x : new_x});
-            }
-
-            else if (this.state.my_number == 2){
-              let new_x = this.state.player2_x - 200;
-              if (new_x < 0){new_x = 0;}
-
-              this.setState({player2_x : new_x});
-            }
-
-            else if (this.state.my_number == 3){
-              let new_x = this.state.player3_x - 200;
-              if (new_x < 0){new_x = 0;}
-
-              this.setState({player3_x : new_x});
-            }
-
-            else if (this.state.my_number == 4){
-              let new_x = this.state.player4_x - 200;
-              if (new_x < 0){new_x = 0;}
-
-              this.setState({player4_x : new_x});
-            }
-          }
-
-          else if (apply_skill_name === "shoot" || apply_skill_name === "doom"){
-            if (this.state.my_number == 1){
-
-              this.setState({got_skill_1 : 0});
-              this.setState({got_skill_2 : 0});
-              this.setState({got_skill_3 : 0});
-              this.setState({got_skill_4 : 0});
-
-              this.setState({player1_x : 0});
-            }
-
-            else if (this.state.my_number == 2){
-
-              this.setState({got_skill_1 : 0});
-              this.setState({got_skill_2 : 0});
-              this.setState({got_skill_3 : 0});
-              this.setState({got_skill_4 : 0});
-
-              this.setState({player2_x : 0});
-            }
-
-            else if (this.state.my_number == 3){
-
-              this.setState({got_skill_1 : 0});
-              this.setState({got_skill_2 : 0});
-              this.setState({got_skill_3 : 0});
-              this.setState({got_skill_4 : 0});
-
-              this.setState({player3_x : 0});
-            }
-
-            else if (this.state.my_number == 4){
-
-              this.setState({got_skill_1 : 0});
-              this.setState({got_skill_2 : 0});
-              this.setState({got_skill_3 : 0});
-              this.setState({got_skill_4 : 0});
-
-              this.setState({player4_x : 0});
-            }
-          }
-
-
-          skill_to_apply.skill_state = "applied"
-
-          delete skill_to_apply.createdAt;
-          delete skill_to_apply.updatedAt;
-
-          await API.graphql(graphqlOperation(updateOnGameSkill, {input:skill_to_apply}))
         }
-      }
+
+    }
+    else{
+      this.setState({isWinng : false});
+      this.changeState("endgame");
+    }
 
   }
 
@@ -471,58 +479,76 @@ class App extends Component {
 
       const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
-
-      my_game.player1_x = this.state.player1_x + this.state.gameSetting[0].speed;
-
-
-      delete my_game.createdAt;
-      delete my_game.updatedAt;
+      if (my_game!==undefined){
+        my_game.player1_x = this.state.player1_x + this.state.gameSetting[0].speed;
 
 
-      const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+        delete my_game.createdAt;
+        delete my_game.updatedAt;
 
-      this.setState({player1_x : parseInt(my_game.player1_x)});
+
+        const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+
+        this.setState({player1_x : parseInt(my_game.player1_x)});
+      }
+      else{
+        this.setState({isWinng : false});
+        this.changeState("endgame");
+      }
+      
     }
 
     else if (this.state.my_number == 2){
 
-      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions));
       let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
 
-      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid);
+
+      if (my_game!==undefined){
+
+        my_game.player2_x = this.state.player2_x + this.state.gameSetting[0].speed;
 
 
-      my_game.player2_x = this.state.player2_x + this.state.gameSetting[0].speed;
+        delete my_game.createdAt;
+        delete my_game.updatedAt;
 
 
-      delete my_game.createdAt;
-      delete my_game.updatedAt;
+        const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
-
-      const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
-
-      this.setState({player2_x : parseInt(my_game.player2_x)});
+        this.setState({player2_x : parseInt(my_game.player2_x)});
+      }
+      else{
+        this.setState({isWinng : false});
+        this.changeState("endgame");
+      }
     }
 
     else if (this.state.my_number == 3){
 
-      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions))
+      const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions));
       let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
 
-      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
+      const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid);
+
+      if (my_game!==undefined){
 
 
-      my_game.player3_x = this.state.player3_x + this.state.gameSetting[0].speed;
+        my_game.player3_x = this.state.player3_x + this.state.gameSetting[0].speed;
 
 
-      delete my_game.createdAt;
-      delete my_game.updatedAt;
+        delete my_game.createdAt;
+        delete my_game.updatedAt;
 
 
-      const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+        const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
 
-      this.setState({player3_x : parseInt(my_game.player3_x)});
-      
+        this.setState({player3_x : parseInt(my_game.player3_x)});
+      }
+      else{
+        this.setState({isWinng : false});
+        this.changeState("endgame");
+      }
     }
 
     else if (this.state.my_number == 4){
@@ -532,21 +558,27 @@ class App extends Component {
 
       const my_game= OnGameSessionsListItems.find(OnGameSessionsListItem => OnGameSessionsListItem.id === this.state.gameid)
 
-
-      my_game.player4_x = this.state.player4_x + this.state.gameSetting[0].speed;
-
-
-      delete my_game.createdAt;
-      delete my_game.updatedAt;
+      if (my_game!==undefined){
 
 
-      const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+        my_game.player4_x = this.state.player4_x + this.state.gameSetting[0].speed;
 
-      this.setState({player4_x : parseInt(my_game.player4_x)});
-      
+
+        delete my_game.createdAt;
+        delete my_game.updatedAt;
+
+
+        const updated_game = await API.graphql(graphqlOperation(updateOnGameSession, {input:my_game}))
+
+        this.setState({player4_x : parseInt(my_game.player4_x)});
+      }
+      else{
+        this.setState({isWinng : false});
+        this.changeState("endgame");
+      }
     }
 
-    this.checkGetSkill()
+    await this.checkGetSkill()
 
   }
 
@@ -677,7 +709,7 @@ class App extends Component {
 
   }
 
-  checkGetSkill(){
+  async checkGetSkill(){
     if (this.state.my_number == 1){
       if ((this.state.player1_x >= 0) && (this.state.got_skill_1 == false)){
         this.resetSkills();
@@ -694,6 +726,9 @@ class App extends Component {
       else if ((this.state.player1_x >= 670) && (this.state.got_skill_4 == false)){
         this.resetSkills();
         this.state.got_skill_4 = true;
+      }
+      else if ((this.state.player1_x >= 900)){
+        this.winGame();
       }
     }
 
@@ -714,6 +749,9 @@ class App extends Component {
         this.resetSkills();
         this.state.got_skill_4 = true;
       }
+      else if ((this.state.player2_x >= 900)){
+        this.winGame();
+      }
     }
 
     else if (this.state.my_number == 3){
@@ -732,6 +770,9 @@ class App extends Component {
       else if ((this.state.player3_x >= 670) && (this.state.got_skill_4 == false)){
         this.resetSkills();
         this.state.got_skill_4 = true;
+      }
+      else if ((this.state.player3_x >= 900)){
+        this.winGame();
       }
     }
 
@@ -752,9 +793,12 @@ class App extends Component {
         this.resetSkills();
         this.state.got_skill_4 = true;
       }
+      else if ((this.state.player4_x >= 900)){
+        this.winGame();
+      }
     }
   }
-
+  
   resetSkills(){
 
       let random_int = Math.random() * (100)
@@ -972,7 +1016,173 @@ class App extends Component {
     
   }
 
+  async winGame(){
+    const OnGameSkillsList = await API.graphql(graphqlOperation(listOnGameSkills))
+      let OnGameSkillsListItems =  OnGameSkillsList.data.listOnGameSkills.items;
 
+      for (let player_number = 1; player_number <= 4; player_number++){
+
+        let sourced_tanos_items = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+          OnGameSkillsListItem.gameid === this.state.gameid && 
+          OnGameSkillsListItem.skill_state === "applied" && 
+          OnGameSkillsListItem.skill_name === "tanos" && 
+          OnGameSkillsListItem.source_player == player_number);
+        
+        let sourced_tanos = 0;
+        if (sourced_tanos_items.length > 0){
+          sourced_tanos = sourced_tanos_items.length
+        }
+
+
+        let sourced_backdoor_items = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+          OnGameSkillsListItem.gameid === this.state.gameid && 
+          OnGameSkillsListItem.skill_state === "applied" && 
+          OnGameSkillsListItem.skill_name === "backdoor" && 
+          OnGameSkillsListItem.source_player == player_number);
+        
+        let sourced_backdoor = 0;
+        if (sourced_backdoor_items.length > 0){
+          sourced_backdoor = sourced_backdoor_items.length
+        }
+
+
+        let sourced_infinite_items = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+          OnGameSkillsListItem.gameid === this.state.gameid && 
+          OnGameSkillsListItem.skill_state === "applied" && 
+          OnGameSkillsListItem.skill_name === "infinite" && 
+          OnGameSkillsListItem.source_player == player_number);
+        
+        let sourced_infinite = 0;
+        if (sourced_infinite_items.length > 0){
+          sourced_infinite = sourced_infinite_items.length
+        }
+
+
+        let sourced_shoot_items = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+          OnGameSkillsListItem.gameid === this.state.gameid && 
+          OnGameSkillsListItem.skill_state === "applied" && 
+          OnGameSkillsListItem.skill_name === "shoot" && 
+          OnGameSkillsListItem.source_player == player_number);
+        
+        let sourced_shoot = 0;
+        if (sourced_shoot_items.length > 0){
+          sourced_shoot = sourced_shoot_items.length
+        }
+
+
+
+        let sourced_doom_items = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+          OnGameSkillsListItem.gameid === this.state.gameid && 
+          OnGameSkillsListItem.skill_state === "applied" && 
+          OnGameSkillsListItem.skill_name === "doom" && 
+          OnGameSkillsListItem.source_player == player_number);
+        
+        let sourced_doom = 0;
+        if (sourced_doom_items.length > 0){
+          sourced_doom = sourced_doom_items.length
+        }
+
+
+        let targeted_tanos_items = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+          OnGameSkillsListItem.gameid === this.state.gameid && 
+          OnGameSkillsListItem.skill_state === "applied" && 
+          OnGameSkillsListItem.skill_name === "tanos" && 
+          OnGameSkillsListItem.target_player == player_number);
+        
+        let targeted_tanos = 0;
+        if (targeted_tanos_items.length > 0){
+          targeted_tanos = targeted_tanos_items.length
+        }
+
+
+        let targeted_backdoor_items = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+          OnGameSkillsListItem.gameid === this.state.gameid && 
+          OnGameSkillsListItem.skill_state === "applied" && 
+          OnGameSkillsListItem.skill_name === "backdoor" && 
+          OnGameSkillsListItem.target_player == player_number);
+        
+        let targeted_backdoor = 0;
+        if (targeted_backdoor_items.length > 0){
+          targeted_backdoor = targeted_backdoor_items.length
+        }
+
+
+        let targeted_infinite_items = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+          OnGameSkillsListItem.gameid === this.state.gameid && 
+          OnGameSkillsListItem.skill_state === "applied" && 
+          OnGameSkillsListItem.skill_name === "infinite" && 
+          OnGameSkillsListItem.target_player == player_number);
+        
+        let targeted_infinite = 0;
+        if (targeted_infinite_items.length > 0){
+          targeted_infinite = targeted_infinite_items.length
+        }
+
+
+        let targeted_shoot_items = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+          OnGameSkillsListItem.gameid === this.state.gameid && 
+          OnGameSkillsListItem.skill_state === "applied" && 
+          OnGameSkillsListItem.skill_name === "shoot" && 
+          OnGameSkillsListItem.target_player == player_number);
+        
+        let targeted_shoot = 0;
+        if (targeted_shoot_items.length > 0){
+          targeted_shoot = targeted_shoot_items.length
+        }
+
+
+        let targeted_doom_items = OnGameSkillsListItems.filter(OnGameSkillsListItem => 
+          OnGameSkillsListItem.gameid === this.state.gameid && 
+          OnGameSkillsListItem.skill_state === "applied" && 
+          OnGameSkillsListItem.skill_name === "doom" && 
+          OnGameSkillsListItem.target_player == player_number);
+        
+        let targeted_doom = 0;
+        if (targeted_doom_items.length > 0){
+          targeted_doom = targeted_doom_items.length
+        }
+
+        let last_x = 0;
+        if (player_number == 1){
+          last_x = this.state.player1_x;
+        }
+
+        else if (player_number == 2){
+          last_x = this.state.player2_x;
+        }
+
+        else if (player_number == 3){
+          last_x = this.state.player3_x;
+        }
+
+        else if (player_number == 4){
+          last_x = this.state.player4_x;
+        }
+
+        const clear_rate = last_x / 900.0;
+
+        const newSkillSummaryInput = {
+          "id": uuid(),
+          "gameid":this.state.gameid,
+          "clear_rate":clear_rate,
+          "sourced_tanos": sourced_tanos,
+          "sourced_backdoor": sourced_backdoor,
+          "sourced_infinite": sourced_infinite,
+          "sourced_shoot": sourced_shoot,
+          "sourced_doom": sourced_doom,
+          "targeted_tanos": targeted_tanos,
+          "targeted_backdoor": targeted_backdoor,
+          "targeted_infinite": targeted_infinite,
+          "targeted_shoot": targeted_shoot,
+          "targeted_doom": targeted_doom,
+        }
+        
+        await API.graphql(graphqlOperation(createSkillSummary, {input: newSkillSummaryInput}));
+      }
+
+      
+  }
+  
 
   render(){
     var Enemy1 = "Enemy";
@@ -1140,6 +1350,7 @@ class App extends Component {
       return (
         <div className="App">
           <h1>Game Ended</h1>
+          {this.state.isWinng}
         </div>
       );
     }
