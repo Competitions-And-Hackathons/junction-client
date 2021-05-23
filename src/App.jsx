@@ -1802,7 +1802,7 @@ async resetSkills(){
         return (
           <header>
             <ReactHowler
-                    src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/81396e40-15ea-4d1d-ae6f-7ee392314b3f/Ehrling_-_Lounge.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210521%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210521T230814Z&X-Amz-Expires=86400&X-Amz-Signature=b511ed1b33f00d0196b414f04cb55ade1d6881c785022b5aefbf84c77a419669&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Ehrling_-_Lounge.wav%22'
+                    src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/81396e40-15ea-4d1d-ae6f-7ee392314b3f/Ehrling_-_Lounge.wav?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20210522%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210522T234619Z&X-Amz-Expires=86400&X-Amz-Signature=4a0b14ff72ee2d28fadde10bdde78157bb3c777e5094a226dc4205d9ace76b7c&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Ehrling_-_Lounge.wav%22"
                     playing={true}
                     loop={true}
                     volume={0.3}
