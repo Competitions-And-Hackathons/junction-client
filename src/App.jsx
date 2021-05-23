@@ -532,7 +532,7 @@ class App extends Component {
 
       if (my_game!==undefined){
 
-        if (my_game.turn == 0){
+        if (this.state.turn == 0){
           my_game.player1_x = this.state.player1_x + this.state.gameSetting[0].speed;
 
 
@@ -574,7 +574,7 @@ class App extends Component {
 
       if (my_game!==undefined){
 
-        if (my_game.turn == 0){
+        if (this.state.turn == 0){
           my_game.player2_x = this.state.player2_x + this.state.gameSetting[0].speed;
 
 
@@ -604,7 +604,7 @@ class App extends Component {
       }
     }
 
-    else if (my_game.my_number == 3){
+    else if (this.state.my_number == 3){
 
       const OnGameSessionsList = await API.graphql(graphqlOperation(listOnGameSessions));
       let OnGameSessionsListItems =  OnGameSessionsList.data.listOnGameSessions.items;
@@ -614,7 +614,7 @@ class App extends Component {
       if (my_game!==undefined){
 
 
-        if (my_game.turn == 0){
+        if (this.state.turn == 0){
           my_game.player3_x = this.state.player3_x + this.state.gameSetting[0].speed;
 
 
@@ -654,7 +654,7 @@ class App extends Component {
       if (my_game!==undefined){
 
 
-        if (my_game.turn == 0){
+        if (this.state.turn == 0){
           my_game.player4_x = this.state.player4_x + this.state.gameSetting[0].speed;
 
 
